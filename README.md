@@ -1,17 +1,9 @@
-# Nix Darwin Kickstarter - Rich Demo
+# Callum's Nix Darwin Configuration
 
- An extensive demo featuring a plethora of configurations that can serve as a reference for your setup. However, exercise caution, as it may **OVERWRITE** your system configuration. **DO NOT** deploy it directly to your system.
+Currently nearly completely based on the great kickstart repo found at
+https://github.com/ryan4yin/nix-darwin-kickstarter/
 
-
-## How to Use
-
-1. Start your nix-darwin journey by following the [minimal](../minimal) configuration.
-2. Read all the files in this repository, and understand what they do.
-   1. If you have trouble understanding, [ryan4yin/nixos-and-flakes-book](https://github.com/ryan4yin/nixos-and-flakes-book) is a good resource to learn nix and flakes.
-3. Copy and CUSTOMIZE the configuration you need from this demo to your own configuration.
-4. Run `just darwin` in the root of your nix configuration to deploy your configuration.
-
-Other Juse commands:
+Just commands:
 
 ```bash
 # See all available commands
@@ -23,8 +15,6 @@ just gc
 ```
 
 ## Configuration Structure
-
-Your current nix-darwin configuration's structure should be as follows:
 
 ```bash
 › tree
@@ -47,13 +37,3 @@ Your current nix-darwin configuration's structure should be as follows:
 └── scripts
     └── darwin_set_proxy.py  # a script to set http proxy for nix & homebrew.
 ```
-
-## Notes on Network Proxy
-
-If you are in a network environment that requires proxy(such as China), you may need to set up proxy for nix and homebrew.
-
-Related files:
-
-- [rich-demo/scripts/darwin_set_proxy.py](/rich-demo/scripts/darwin_set_proxy.py)
-- [rich-demo/Justfile](/rich-demo/Justfile)
-- [rich-demo - homebrew's mirror settings](/rich-demo/modules/homebrew-mirror.nix)
