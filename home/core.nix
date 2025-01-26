@@ -1,51 +1,55 @@
-{pkgs, pkgs-unstable, ...}: 
-  let
-    stablePackages = with pkgs; [
-      sqlite
-      wget
-      zip
-      lazygit
-      lazydocker
-      ollama
-      pqrs
-      cargo
-      rustc
-      libiconv
-      nil
-      age
-      gnupg
-      libfido2
-      docker
-      docker-compose
-      colima
-      font-awesome
-      fzf
-      htop
-      jq
-      ripgrep
-      tree
-      tmux
-      zellij
-      unzip
-      helix
-      micromamba
-      xz
-      p7zip
-      aria2
-      socat
-      nmap
-      file
-      gawk
-      zstd
+{
+  pkgs,
+  pkgs-unstable,
+  ...
+}: let
+  stablePackages = with pkgs; [
+    sqlite
+    wget
+    zip
+    lazygit
+    lazydocker
+    ollama
+    pqrs
+    cargo
+    rustc
+    libiconv
+    nil
+    age
+    gnupg
+    libfido2
+    docker
+    docker-compose
+    colima
+    font-awesome
+    fzf
+    htop
+    jq
+    ripgrep
+    tree
+    tmux
+    zellij
+    unzip
+    helix
+    micromamba
+    xz
+    p7zip
+    aria2
+    socat
+    nmap
+    file
+    gawk
+    zstd
+    alejandra
 
-      # macOS
-      iina
-      iterm2
+    # macOS
+    iina
+    iterm2
   ];
   unstablePackages = with pkgs-unstable; [
     uv
   ];
-  in {
+in {
   home.packages = stablePackages ++ unstablePackages;
 
   programs = {

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{pkgs, ...}:
 #  macOS's System configuration
 {
   system = {
@@ -11,22 +11,22 @@
     '';
 
     defaults = {
-      menuExtraClock.Show24Hour = true;  # show 24 hour clock
-      
+      menuExtraClock.Show24Hour = true; # show 24 hour clock
+
       # customize dock
       dock = {
         autohide = true;
-        show-recents = false;  # disable recent apps
+        show-recents = false; # disable recent apps
       };
 
       # customize finder
       finder = {
-        _FXShowPosixPathInTitle = true;  # show full path in finder title
-        AppleShowAllExtensions = true;  # show all file extensions
+        _FXShowPosixPathInTitle = true; # show full path in finder title
+        AppleShowAllExtensions = true; # show all file extensions
         # FXEnableExtensionChangeWarning = false;  # disable warning when changing file extension
-        QuitMenuItem = true;  # enable quit menu item
-        ShowPathbar = true;  # show path bar
-        ShowStatusBar = true;  # show status bar
+        QuitMenuItem = true; # enable quit menu item
+        ShowPathbar = true; # show path bar
+        ShowStatusBar = true; # show status bar
       };
 
       NSGlobalDomain = {
@@ -35,9 +35,9 @@
         # ApplePressAndHoldEnabled = true;  # enable press and hold
 
         # sets how long it takes before it starts repeating.
-        InitialKeyRepeat = 15;  # normal minimum is 15 (225 ms), maximum is 120 (1800 ms)
-        # sets how fast it repeats once it starts. 
-        KeyRepeat = 2;  # normal minimum is 2 (30 ms), maximum is 120 (1800 ms)
+        InitialKeyRepeat = 15; # normal minimum is 15 (225 ms), maximum is 120 (1800 ms)
+        # sets how fast it repeats once it starts.
+        KeyRepeat = 2; # normal minimum is 2 (30 ms), maximum is 120 (1800 ms)
       };
     };
   };

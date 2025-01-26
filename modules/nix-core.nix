@@ -1,7 +1,8 @@
-
-{ pkgs, lib, ... }:
-
 {
+  pkgs,
+  lib,
+  ...
+}: {
   nix.settings = {
     # enable flakes globally
     experimental-features = ["nix-command" "flakes"];

@@ -1,9 +1,8 @@
-{ pkgs, ... }: {
-
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     neovim
     git
-    just # use Justfile to simplify nix-darwin's commands 
+    just # use Justfile to simplify nix-darwin's commands
   ];
   environment.variables.EDITOR = "nvim";
 
@@ -20,7 +19,7 @@
     # Applications to install from Mac App Store using mas.
     # You need to install all these Apps manually first so that your apple account have records for them.
     # otherwise Apple Store will refuse to install them.
-    # For details, see https://github.com/mas-cli/mas 
+    # For details, see https://github.com/mas-cli/mas
     masApps = {
       Xcode = 497799835;
     };
@@ -45,7 +44,7 @@
 
       "anki"
       "raycast" # (HotKey: alt/option + space)search, caculate and run scripts(with many plugins)
-      "stats" 
+      "stats"
 
       # Development
       "insomnia" # REST client
