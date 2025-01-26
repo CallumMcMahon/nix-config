@@ -30,7 +30,6 @@
     ];
 
     # `brew install`
-    # TODO Feel free to add your favorite apps here.
     brews = [
       "wget" # download tool
       "curl" # no not install curl via nixpkgs, it's not working well on macOS!
@@ -39,17 +38,14 @@
     ];
 
     # `brew install --cask`
-    # TODO Feel free to add your favorite apps here.
     casks = [
       "firefox"
       "google-chrome"
       "visual-studio-code"
 
       "anki"
-      "iina" # video player
       "raycast" # (HotKey: alt/option + space)search, caculate and run scripts(with many plugins)
-      "stats" # beautiful system monitor
-      "eudic" # 欧路词典
+      "stats" 
 
       # Development
       "insomnia" # REST client

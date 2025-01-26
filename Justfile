@@ -1,4 +1,3 @@
-# TODO update hostname here!
 hostname := "Callums-MacBook-Air"
 
 # List all the just commands

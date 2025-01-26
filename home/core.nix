@@ -37,6 +37,7 @@
       file
       gawk
       zstd
+      iina
   ];
   unstablePackages = with pkgs-unstable; [
     uv
