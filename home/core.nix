@@ -37,7 +37,10 @@
       file
       gawk
       zstd
+
+      # macOS
       iina
+      iterm2
   ];
   unstablePackages = with pkgs-unstable; [
     uv
