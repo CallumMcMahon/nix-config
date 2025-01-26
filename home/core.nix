@@ -30,7 +30,6 @@
     tmux
     zellij
     unzip
-    helix
     micromamba
     xz
     p7zip
@@ -48,6 +47,7 @@
   ];
   unstablePackages = with pkgs-unstable; [
     uv
+    helix
   ];
 in {
   home.packages = stablePackages ++ unstablePackages;

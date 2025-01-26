@@ -1,4 +1,5 @@
 hostname := "Callums-MacBook-Air"
+set shell := ["zsh", "-uc"]
 
 # List all the just commands
 default:
@@ -6,10 +7,17 @@ default:
 
 [group('desktop')]
 darwin:
+  #!/usr/bin/env bash
+  current=$(nix-env --list-generations | grep current)
+  echo "Committing the current system configuration: $current"
+  git commit -am "$current"
   nix build .#darwinConfigurations.{{hostname}}.system \
     --extra-experimental-features 'nix-command flakes'
 
   ./result/sw/bin/darwin-rebuild switch --flake .#{{hostname}}
+
+# [group('desktop')]
+# boiler:
 
 [group('desktop')]
 darwin-debug:
