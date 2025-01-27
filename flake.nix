@@ -22,21 +22,27 @@
     home-manager,
     ...
   }: let
-    username = "callum";
-    useremail = "mcmahon.callum@gmail.com";
     system = "aarch64-darwin";
-    hostname = "Callums-MacBook-Air";
-
-    specialArgs = {
-      inherit inputs username useremail hostname;
-      pkgs-unstable = import nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-      };
+    air = {
+      username = "callum";
+      useremail = "mcmahon.callum@gmail.com";
+      hostname = "Callums-MacBook-Air";
     };
+    pro = {
+      username = "cam45819";
+      useremail = "callum.a.mcmahon@gsk.com";
+      hostname = "GSKWMGFJ62X0JYX";
+    };
+    pkgs-unstable = import nixpkgs-unstable {
+      inherit system;
+      config.allowUnfree = true;
+    };
+    airArgs = {inherit inputs pkgs-unstable;} // air;
+    proArgs = {inherit inputs pkgs-unstable;} // pro;
   in {
-    darwinConfigurations."${hostname}" = darwin.lib.darwinSystem {
-      inherit system specialArgs;
+    darwinConfigurations."${air.hostname}" = darwin.lib.darwinSystem {
+      inherit system;
+      specialArgs = airArgs;
       modules = [
         ./modules/nix-core.nix
         ./modules/system.nix
@@ -48,8 +54,28 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = specialArgs;
-          home-manager.users.${username} = import ./home;
+          home-manager.extraSpecialArgs = airArgs;
+          home-manager.users.${air.username} = import ./home;
+        }
+      ];
+    };
+    darwinConfigurations."${pro.hostname}" = darwin.lib.darwinSystem {
+      inherit system;
+      specialArgs = proArgs;
+      modules = [
+        ./modules/work-settings.nix
+        ./modules/nix-core.nix
+        ./modules/system.nix
+        ./modules/apps.nix
+        ./modules/host-users.nix
+
+        # home manager
+        home-manager.darwinModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = proArgs;
+          home-manager.users.${pro.username} = import ./home;
         }
       ];
     };

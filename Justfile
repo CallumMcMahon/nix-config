@@ -1,30 +1,36 @@
-hostname := "Callums-MacBook-Air"
-set shell := ["zsh", "-uc"]
 
 # List all the just commands
 default:
   @just --list
 
 [group('desktop')]
-darwin:
+air:
   #!/usr/bin/env bash
   current=$(nix-env --list-generations | grep current)
   echo "Committing the current system configuration: $current"
-  git commit -am "$current"
-  nix build .#darwinConfigurations.{{hostname}}.system \
+  # git commit -am "$current"
+  nix build .#darwinConfigurations.Callums-MacBook-Air.system \
     --extra-experimental-features 'nix-command flakes'
 
-  ./result/sw/bin/darwin-rebuild switch --flake .#{{hostname}}
+  ./result/sw/bin/darwin-rebuild switch --flake .#Callums-MacBook-Air
+
+[group('desktop')]
+pro:
+  nix build .#darwinConfigurations.GSKWMGFJ62X0JYX.system \
+    --extra-experimental-features 'nix-command flakes'
+
+  ./result/sw/bin/darwin-rebuild switch --flake .#GSKWMGFJ62X0JYX
+
 
 # [group('desktop')]
 # boiler:
 
 [group('desktop')]
 darwin-debug:
-  nix build .#darwinConfigurations.{{hostname}}.system --show-trace --verbose \
+  nix build .#darwinConfigurations.Callums-MacBook-Air.system --show-trace --verbose \
     --extra-experimental-features 'nix-command flakes'
 
-  ./result/sw/bin/darwin-rebuild switch --flake .#{{hostname}} --show-trace --verbose
+  ./result/sw/bin/darwin-rebuild switch --flake .#Callums-MacBook-Air --show-trace --verbose
 
 ############################################################################
 #

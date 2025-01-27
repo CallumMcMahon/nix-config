@@ -87,5 +87,11 @@ in {
       enable = true;
       enableBashIntegration = true;
     };
+    
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
   };
 }

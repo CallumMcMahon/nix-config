@@ -61,5 +61,7 @@
       update = "submodule update --init --recursive";
       foreach = "submodule foreach";
     };
+    
+    ignores = [".DS_Store"];
   };
 }
