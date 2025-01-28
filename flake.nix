@@ -44,6 +44,7 @@
       inherit system;
       specialArgs = airArgs;
       modules = [
+        ./modules/personal-settings.nix
         ./modules/nix-core.nix
         ./modules/system.nix
         ./modules/apps.nix
