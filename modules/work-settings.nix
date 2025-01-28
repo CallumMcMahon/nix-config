@@ -13,8 +13,11 @@ in
   nix.settings.ssl-cert-file = /etc/nix/ca_cert.pem;
   home-manager.users.${specialArgs.username} = {
     home.packages = [gdk pkgs.azure-cli];
-    programs.zsh.initExtra = ''
-      source ~/nixos-config/modules/work_zshrc
-    '';
+    programs = {
+      zsh.initExtra = ''
+        source ~/nixos-config/modules/work_zshrc
+      '';
+      git.signing.key = "6F5AAB42F3606CF7";
+    };
   };
 }
