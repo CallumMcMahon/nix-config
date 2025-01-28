@@ -31,13 +31,8 @@
       init.defaultBranch = "main";
       core.editor = "vim";
       push.autoSetupRemote = true;
-      commit.gpgsign = true;
       rebase.autoStash = true;
       # pull.rebase = true;
-    };
-
-    signing = {
-      signByDefault = true;
     };
 
     delta = {

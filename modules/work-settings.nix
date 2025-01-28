@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   specialArgs,
   ...
 }: let
@@ -17,7 +16,13 @@ in
       zsh.initExtra = ''
         source ~/nixos-config/modules/work_zshrc
       '';
-      git.signing.key = "6F5AAB42F3606CF7";
+      git = {
+        extraConfig.commit.pgpsign = true;
+        signing = {
+          key = "6F5AAB42F3606CF7";
+          signByDefault = true;
+        };
+      };
     };
   };
 }
