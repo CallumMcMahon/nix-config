@@ -28,7 +28,6 @@
     ripgrep
     tree
     tmux
-    zellij
     unzip
     micromamba
     xz
@@ -48,6 +47,8 @@
   unstablePackages = with pkgs-unstable; [
     uv
     helix
+    zellij
+    neovim
   ];
 in {
   home.packages = stablePackages ++ unstablePackages;
@@ -55,9 +56,32 @@ in {
   programs = {
     # modern vim
     neovim = {
-      enable = true;
+      enable = false;
       defaultEditor = true;
       vimAlias = true;
+      package = pkgs-unstable.neovim;
+    };
+
+    vscode = {
+      enable = true;
+      package = pkgs-unstable.vscode;
+      extensions = with pkgs.vscode-extensions; [
+        ms-python.python
+        ms-python.debugpy
+        ms-python.vscode-pylance
+        asvetliakov.vscode-neovim
+        dracula-theme.theme-dracula
+
+        ms-toolsai.jupyter
+        ms-toolsai.jupyter-keymap
+        
+        yzhang.markdown-all-in-one
+        waderyan.gitblame
+        jnoortheen.nix-ide
+        charliermarsh.ruff
+        github.copilot
+        github.copilot-chat
+      ];
     };
 
     # A modern replacement for ‘ls’

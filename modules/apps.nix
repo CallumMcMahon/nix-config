@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    neovim
+    # neovim
     git
     just # use Justfile to simplify nix-darwin's commands
   ];

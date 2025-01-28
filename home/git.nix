@@ -29,14 +29,17 @@
 
     extraConfig = {
       init.defaultBranch = "main";
+      core.editor = "vim";
       push.autoSetupRemote = true;
+      commit.gpgsign = true;
+      rebase.autoStash = true;
       # pull.rebase = true;
     };
 
-    # signing = {
-    #   key = "xxx";
-    #   signByDefault = true;
-    # };
+    signing = {
+      key = "6F5AAB42F3606CF7";
+      signByDefault = true;
+    };
 
     delta = {
       enable = true;
@@ -62,6 +65,6 @@
       foreach = "submodule foreach";
     };
     
-    ignores = [".DS_Store"];
+    ignores = [ "*.swp" ".idea" ".vscode" "research/" "lightning_logs/" ".mlflow" "outputs/" ".DS_Store" ".direnv/" ".envrc"];
   };
 }
