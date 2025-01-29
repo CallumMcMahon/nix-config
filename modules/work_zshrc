@@ -38,12 +38,11 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias conda='micromamba'
 
 # export UV_EXTRA_INDEX_URL=$(grep 'extra-index-url' ~/.config/pip/pip.conf | cut -d '=' -f 2-) # not good, uses index for everything
+source ~/.config/zsh/secrets
 export VISUAL=hx
 export EDITOR=hx
 export MAMBA_NO_BANNER=1
 export MAMBA_ROOT_PREFIX='/Users/cam45819/micromamba'
-export HTTP_PROXY='http://nodecrypt.gtm.corpnet2.com:800'
-export HTTPS_PROXY='http://nodecrypt.gtm.corpnet2.com:800'
 export NO_PROXY="*.gsk.com,*.corpnet1.com,*.corpnet2.com,10.0.0.0/8,localhost"
 export SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 export REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
