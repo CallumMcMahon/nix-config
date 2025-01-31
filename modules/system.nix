@@ -18,6 +18,7 @@
         autohide = true;
         show-recents = false; # disable recent apps
       };
+      # WindowManager.EnableTiledWindowMargins = false; # uncomment in next release
 
       # customize finder
       finder = {
