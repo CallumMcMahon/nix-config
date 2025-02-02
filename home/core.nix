@@ -55,32 +55,33 @@
   ];
   # currently assumes the location of the config repo
   dotfiles = "${config.home.homeDirectory}/nix-config/dotfiles";
+  mkOutOfStoreSymlink = config.lib.file.mkOutOfStoreSymlink;
 in {
   home.packages = stablePackages ++ unstablePackages;
-  xdg.enable = true;
+  xdg.enable = true; # verify with # nix run github:b3nj5m1n/xdg-ninja
   xdg.configFile = {
     "helix" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/helix";
+      source = mkOutOfStoreSymlink "${dotfiles}/helix";
       recursive = true;
     };
     "karabiner" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/karabiner/karabiner.json";
+      source = mkOutOfStoreSymlink "${dotfiles}/karabiner/karabiner.json";
       target = "karabiner/karabiner.json";
     };
     "zellij" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/zellij";
+      source = mkOutOfStoreSymlink "${dotfiles}/zellij";
       recursive = true;
     };
     "nvim" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/nvim";
+      source = mkOutOfStoreSymlink "${dotfiles}/nvim";
       recursive = true;
     };
     "iterm2" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/iterm2/com.googlecode.iterm2.plist";
+      source = mkOutOfStoreSymlink "${dotfiles}/iterm2/com.googlecode.iterm2.plist";
       target = "iterm2/com.googlecode.iterm2.plist";
     };
     "python" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/python";
+      source = mkOutOfStoreSymlink "${dotfiles}/python";
       recursive = true;
     };
   };

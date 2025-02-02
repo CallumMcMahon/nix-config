@@ -40,6 +40,13 @@
         # sets how fast it repeats once it starts.
         KeyRepeat = 2; # normal minimum is 2 (30 ms), maximum is 120 (1800 ms)
       };
+      CustomUserPreferences = {
+        "com.apple.desktopservices" = {
+          # Avoid creating .DS_Store files on network or USB volumes
+          DSDontWriteNetworkStores = true;
+          DSDontWriteUSBStores = true;
+        };
+      };
     };
   };
 
