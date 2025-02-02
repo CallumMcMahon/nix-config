@@ -1,0 +1,4 @@
+inherits = "github_light"
+
+# UI
+"ui.virtual.ruler" = { underline = { style = "line"} }
