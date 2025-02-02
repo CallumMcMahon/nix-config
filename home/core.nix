@@ -39,7 +39,8 @@
     file
     gawk
     zstd
-    alejandra
+    alejandra # nix code formatter
+    ranger
     nodejs # needed for neovim plugins
 
     # macOS

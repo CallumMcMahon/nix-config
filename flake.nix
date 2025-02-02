@@ -49,6 +49,7 @@
         ./modules/system.nix
         ./modules/apps.nix
         ./modules/host-users.nix
+        ./modules/clean-zsh.nix
 
         # home manager
         home-manager.darwinModules.home-manager
@@ -69,6 +70,7 @@
         ./modules/system.nix
         ./modules/apps.nix
         ./modules/host-users.nix
+        ./modules/clean-zsh.nix
 
         # home manager
         home-manager.darwinModules.home-manager
