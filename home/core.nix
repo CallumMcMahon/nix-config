@@ -73,6 +73,10 @@ in {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/nvim";
       recursive = true;
     };
+    "iterm2" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/iterm2/com.googlecode.iterm2.plist";
+      target = "iterm2/com.googlecode.iterm2.plist";
+    };
   };
 
   programs = {
