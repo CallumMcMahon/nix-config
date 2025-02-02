@@ -53,7 +53,7 @@
     neovim
   ];
   # currently assumes the location of the config repo
-  dotfiles = "${config.home.homeDirectory}/nixos-config/dotfiles";
+  dotfiles = "${config.home.homeDirectory}/nix-config/dotfiles";
 in {
   home.packages = stablePackages ++ unstablePackages;
   xdg.configFile = {
