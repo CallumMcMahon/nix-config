@@ -1,11 +1,19 @@
-{pkgs, ...}: {
+{pkgs, config, ...}: {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
+    completionInit = ''autoload -U compinit && compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"'';
     initExtra = ''
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
+      export CARGO_HOME="$XDG_DATA_HOME"/cargo
+      export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+      export NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME"/npm/config/npm-init.js
+      export NPM_CONFIG_CACHE="$XDG_CACHE_HOME"/npm
+      export NPM_CONFIG_TMP="$XDG_RUNTIME_DIR"/npm
+      export PYTHONSTARTUP="$XDG_CONFIG_HOME"/python/pythonrc
     '';
     dotDir = ".config/zsh";
+    history.path = "${config.xdg.dataHome}/zsh/zsh_history";
     plugins = [
       {
         # Must be before plugins that wrap widgets, such as zsh-autosuggestions or fast-syntax-highlighting
