@@ -52,14 +52,18 @@
     zellij
     neovim
   ];
+  dotfiles = "${config.home.homeDirectory}/nixos-config/dotfiles";
 in {
   home.packages = stablePackages ++ unstablePackages;
   xdg.configFile = {
     "helix" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/helix";
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/helix";
       recursive = true;
     };
-    # ...
+    "karabiner" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/karabiner/karabiner.json";
+      target = "karabiner/karabiner.json";
+    };
   };
 
   programs = {
