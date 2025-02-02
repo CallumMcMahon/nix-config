@@ -52,6 +52,7 @@
     zellij
     neovim
   ];
+  # currently assumes the location of the config repo
   dotfiles = "${config.home.homeDirectory}/nixos-config/dotfiles";
 in {
   home.packages = stablePackages ++ unstablePackages;
