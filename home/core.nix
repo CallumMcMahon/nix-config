@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgs-unstable,
+  config,
   ...
 }: let
   stablePackages = with pkgs; [
@@ -52,6 +53,13 @@
   ];
 in {
   home.packages = stablePackages ++ unstablePackages;
+  xdg.configFile = {
+    "helix" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/helix";
+      recursive = true;
+    };
+    # ...
+  };
 
   programs = {
     # modern vim
