@@ -40,6 +40,7 @@
     gawk
     zstd
     alejandra
+    nodejs # needed for neovim plugins
 
     # macOS
     iina
