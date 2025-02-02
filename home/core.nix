@@ -64,6 +64,10 @@ in {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/karabiner/karabiner.json";
       target = "karabiner/karabiner.json";
     };
+    "zellij" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/zellij";
+      recursive = true;
+    };
   };
 
   programs = {
