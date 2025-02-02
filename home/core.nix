@@ -56,6 +56,7 @@
   dotfiles = "${config.home.homeDirectory}/nix-config/dotfiles";
 in {
   home.packages = stablePackages ++ unstablePackages;
+  xdg.enable = true;
   xdg.configFile = {
     "helix" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/helix";
@@ -76,6 +77,10 @@ in {
     "iterm2" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/iterm2/com.googlecode.iterm2.plist";
       target = "iterm2/com.googlecode.iterm2.plist";
+    };
+    "python" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/python";
+      recursive = true;
     };
   };
 
