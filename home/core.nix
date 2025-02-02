@@ -68,6 +68,10 @@ in {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/zellij";
       recursive = true;
     };
+    "nvim" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/nvim";
+      recursive = true;
+    };
   };
 
   programs = {
