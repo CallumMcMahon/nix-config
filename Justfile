@@ -4,33 +4,18 @@ default:
   @just --list
 
 [group('desktop')]
-air:
-  #!/usr/bin/env bash
-  current=$(nix-env --list-generations | grep current)
-  echo "Committing the current system configuration: $current"
-  # git commit -am "$current"
-  nix build .#darwinConfigurations.Callums-MacBook-Air.system \
-    --extra-experimental-features 'nix-command flakes'
-
-  ./result/sw/bin/darwin-rebuild switch --flake .#Callums-MacBook-Air
-
-[group('desktop')]
-pro:
-  nix build .#darwinConfigurations.GSKWMGFJ62X0JYX.system \
-    --extra-experimental-features 'nix-command flakes'
-
-  ./result/sw/bin/darwin-rebuild switch --flake .#GSKWMGFJ62X0JYX
-
-
-# [group('desktop')]
-# boiler:
+darwin:
+  #!/usr/bin/env sh
+  if command -v darwin-rebuild &> /dev/null; then
+    darwin-rebuild switch --flake .
+  else
+    echo "nix-darwin is not installed, trying to install it..."
+    nix run nix-darwin/master#darwin-rebuild -- switch --flake .
+  fi
 
 [group('desktop')]
 darwin-debug:
-  nix build .#darwinConfigurations.Callums-MacBook-Air.system --show-trace --verbose \
-    --extra-experimental-features 'nix-command flakes'
-
-  ./result/sw/bin/darwin-rebuild switch --flake .#Callums-MacBook-Air --show-trace --verbose
+  darwin-rebuild switch --flake . --show-trace --verbose
 
 ############################################################################
 #
