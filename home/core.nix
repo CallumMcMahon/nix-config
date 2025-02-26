@@ -12,8 +12,9 @@
     lazydocker
     ollama
     pqrs
-    cargo
-    rustc
+    # rustc
+    # cargo
+    rustup # either cargo or rustup
     libiconv
     nil
     age
