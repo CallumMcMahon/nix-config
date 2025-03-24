@@ -12,6 +12,9 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
   };
 
   outputs = inputs @ {
@@ -20,6 +23,8 @@
     nixpkgs-unstable,
     darwin,
     home-manager,
+    disko,
+    nixos-facter-modules,
     ...
   }: let
     system = "aarch64-darwin";
@@ -44,12 +49,12 @@
       inherit system;
       specialArgs = airArgs;
       modules = [
-        ./modules/personal-settings.nix
+        ./modules/apps.nix
+        ./modules/clean-zsh.nix
+        ./modules/host-users.nix
         ./modules/nix-core.nix
         ./modules/system.nix
-        ./modules/apps.nix
-        ./modules/host-users.nix
-        ./modules/clean-zsh.nix
+        ./modules/personal-settings.nix
 
         # home manager
         home-manager.darwinModules.home-manager
@@ -65,12 +70,12 @@
       inherit system;
       specialArgs = proArgs;
       modules = [
-        ./modules/work-settings.nix
+        ./modules/apps.nix
+        ./modules/clean-zsh.nix
+        ./modules/host-users.nix
         ./modules/nix-core.nix
         ./modules/system.nix
-        ./modules/apps.nix
-        ./modules/host-users.nix
-        ./modules/clean-zsh.nix
+        ./modules/work-settings.nix
 
         # home manager
         home-manager.darwinModules.home-manager
@@ -80,6 +85,13 @@
           home-manager.extraSpecialArgs = proArgs;
           home-manager.users.${pro.username} = import ./home;
         }
+      ];
+    };
+    nixosConfigurations.hetzner-cloud = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        disko.nixosModules.disko
+        ./hetzner/configuration.nix
       ];
     };
 
