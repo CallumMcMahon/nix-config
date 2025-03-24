@@ -89,6 +89,7 @@
     };
     nixosConfigurations.hetzner-cloud = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = airArgs;
       modules = [
         disko.nixosModules.disko
         ./hetzner/configuration.nix
