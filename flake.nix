@@ -92,6 +92,15 @@
       modules = [
         disko.nixosModules.disko
         ./hetzner/configuration.nix
+
+        # home manager
+        home-manager.darwinModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = airArgs;
+          home-manager.users.${air.username} = import ./home;
+        }
       ];
     };
 

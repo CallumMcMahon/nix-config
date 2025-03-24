@@ -29,9 +29,15 @@
 
   networking.hostName = "hetzner-cloud";
   users.users.root.openssh.authorizedKeys.keys = [
-    # change this to your ssh key
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO3j3IjwJqhr6H8J/LE3hT3JpKuiKaYM23H6PwDV19iE"
   ];
+  users.users.callum = {
+    isNormalUser = true;
+    # home = "/home/callum";
+    # description = "callum's home";
+  };
+
+
 
   system.stateVersion = "24.05";
 }
