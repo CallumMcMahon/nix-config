@@ -15,6 +15,7 @@
     # rustc
     # cargo
     rustup # either cargo or rustup
+    duckdb
     libiconv
     nil
     age
@@ -22,7 +23,6 @@
     libfido2
     docker
     docker-compose
-    colima
     font-awesome
     fzf
     htop
@@ -42,6 +42,7 @@
     zstd
     alejandra # nix code formatter
     ranger
+    joshuto # trying ranger alternative
     nodejs # needed for neovim plugins
 
     # macOS
@@ -49,6 +50,7 @@
     iterm2
   ];
   unstablePackages = with pkgs-unstable; [
+    colima # xdg home support?
     uv
     helix
     zellij

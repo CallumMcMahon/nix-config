@@ -11,6 +11,11 @@
       export NPM_CONFIG_CACHE="$XDG_CACHE_HOME"/npm
       export NPM_CONFIG_TMP="$XDG_RUNTIME_DIR"/npm
       export PYTHONSTARTUP="$XDG_CONFIG_HOME"/python/pythonrc
+      export AZURE_CONFIG_DIR="$XDG_DATA_HOME"/azure
+      export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+      export MYSQL_HISTFILE="$XDG_DATA_HOME"/mysql_history
+      export PSQL_HISTORY="$XDG_STATE_HOME/psql_history"
+      alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
     '';
     dotDir = ".config/zsh";
     history.path = "${config.xdg.dataHome}/zsh/zsh_history";
