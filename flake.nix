@@ -38,12 +38,18 @@
       useremail = "callum.a.mcmahon@gsk.com";
       hostname = "GSKWMGFJ62X0JYX";
     };
+    het = {
+      username = "callum";
+      useremail = "mcmahon.callum@gmail.com";
+      hostname = "hetzner-cloud";
+      };
     pkgs-unstable = import nixpkgs-unstable {
       inherit system;
       config.allowUnfree = true;
     };
     airArgs = {inherit inputs pkgs-unstable;} // air;
     proArgs = {inherit inputs pkgs-unstable;} // pro;
+    hetArgs = {inherit inputs pkgs-unstable;} // het;
   in {
     darwinConfigurations."${air.hostname}" = darwin.lib.darwinSystem {
       inherit system;
@@ -89,7 +95,7 @@
     };
     nixosConfigurations.hetzner-cloud = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = airArgs;
+      specialArgs = hetArgs;
       modules = [
         disko.nixosModules.disko
         ./hetzner/configuration.nix
