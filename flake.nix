@@ -105,8 +105,8 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = airArgs;
-          home-manager.users.${air.username} = import ./home;
+          home-manager.extraSpecialArgs = hetArgs;
+          home-manager.users.${het.username} = import ./home;
         }
       ];
     };
