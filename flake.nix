@@ -56,9 +56,9 @@
     proArgs = {inherit inputs pkgs-unstable; system = "aarch64-darwin";} // pro;
     hetArgs = {inherit inputs pkgs-unstable-linux; system = "x86_64-linux";} // het;
   in {
-    darwinConfigurations."${air.hostname}" = darwin.lib.darwinSystem rec {
+    darwinConfigurations."${air.hostname}" = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
-      specialArgs = {system=system;} // airArgs;
+      specialArgs = airArgs;
       modules = [
         ./modules/apps.nix
         ./modules/clean-zsh.nix
@@ -77,7 +77,7 @@
         }
       ];
     };
-    darwinConfigurations."${pro.hostname}" = darwin.lib.darwinSystem rec {
+    darwinConfigurations."${pro.hostname}" = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       specialArgs = {system=system;} // proArgs;
       modules = [
@@ -98,9 +98,9 @@
         }
       ];
     };
-    nixosConfigurations.hetzner-cloud = nixpkgs.lib.nixosSystem rec {
+    nixosConfigurations.hetzner-cloud = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = {inherit system;} // hetArgs;
+      specialArgs = hetArgs;
       modules = [
         disko.nixosModules.disko
         ./hetzner/configuration.nix
