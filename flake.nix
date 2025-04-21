@@ -11,7 +11,7 @@
     };
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
-      inputs.nixpkgs.follows = "nixpkgs-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -28,7 +28,6 @@
     nixos-facter-modules,
     ...
   }: let
-    system = "aarch64-darwin";
     air = {
       username = "callum";
       useremail = "mcmahon.callum@gmail.com";
@@ -45,16 +44,21 @@
       hostname = "hetzner-cloud";
       };
     pkgs-unstable = import nixpkgs-unstable {
-      inherit system;
+      system = "aarch64-darwin";
       config.allowUnfree = true;
     };
-    airArgs = {inherit inputs pkgs-unstable;} // air;
-    proArgs = {inherit inputs pkgs-unstable;} // pro;
-    hetArgs = {inherit inputs pkgs-unstable;} // het;
+    pkgs-unstable-linux = import nixpkgs-unstable {
+      system = "x86_64-linux";
+      config.allowUnfree = true;
+    };
+    
+    airArgs = {inherit inputs pkgs-unstable; system = "aarch64-darwin";} // air;
+    proArgs = {inherit inputs pkgs-unstable; system = "aarch64-darwin";} // pro;
+    hetArgs = {inherit inputs pkgs-unstable-linux; system = "x86_64-linux";} // het;
   in {
-    darwinConfigurations."${air.hostname}" = darwin.lib.darwinSystem {
-      inherit system;
-      specialArgs = airArgs;
+    darwinConfigurations."${air.hostname}" = darwin.lib.darwinSystem rec {
+      system = "aarch64-darwin";
+      specialArgs = {system=system;} // airArgs;
       modules = [
         ./modules/apps.nix
         ./modules/clean-zsh.nix
@@ -68,14 +72,14 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = airArgs;
+          home-manager.extraSpecialArgs = specialArgs;
           home-manager.users.${air.username} = import ./home;
         }
       ];
     };
-    darwinConfigurations."${pro.hostname}" = darwin.lib.darwinSystem {
-      inherit system;
-      specialArgs = proArgs;
+    darwinConfigurations."${pro.hostname}" = darwin.lib.darwinSystem rec {
+      system = "aarch64-darwin";
+      specialArgs = {system=system;} // proArgs;
       modules = [
         ./modules/apps.nix
         ./modules/clean-zsh.nix
@@ -94,9 +98,9 @@
         }
       ];
     };
-    nixosConfigurations.hetzner-cloud = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.hetzner-cloud = nixpkgs.lib.nixosSystem rec {
       system = "x86_64-linux";
-      specialArgs = hetArgs;
+      specialArgs = {inherit system;} // hetArgs;
       modules = [
         disko.nixosModules.disko
         ./hetzner/configuration.nix
@@ -113,6 +117,6 @@
     };
 
     # nix code formatter
-    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
+    # formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
   };
 }
