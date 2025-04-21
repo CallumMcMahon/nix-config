@@ -72,14 +72,14 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = specialArgs;
+          home-manager.extraSpecialArgs = airArgs;
           home-manager.users.${air.username} = import ./home;
         }
       ];
     };
     darwinConfigurations."${pro.hostname}" = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
-      specialArgs = {system=system;} // proArgs;
+      specialArgs = proArgs;
       modules = [
         ./modules/apps.nix
         ./modules/clean-zsh.nix
