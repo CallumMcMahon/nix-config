@@ -54,7 +54,7 @@
     
     airArgs = {inherit inputs pkgs-unstable; system = "aarch64-darwin";} // air;
     proArgs = {inherit inputs pkgs-unstable; system = "aarch64-darwin";} // pro;
-    hetArgs = {inherit inputs; pkgs-unstable = pkgs-unstable-linux system = "x86_64-linux";} // het;
+    hetArgs = {inherit inputs; pkgs-unstable = pkgs-unstable-linux; system = "x86_64-linux";} // het;
   in {
     darwinConfigurations."${air.hostname}" = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
