@@ -31,7 +31,6 @@
     tree
     tmux
     unzip
-    micromamba
     xz
     p7zip
     aria2
@@ -44,6 +43,7 @@
     ranger
     joshuto # trying ranger alternative
     nodejs # needed for neovim plugins
+    rclone
 
     # macOS
     iina
@@ -55,6 +55,8 @@
     helix
     zellij
     neovim
+    micromamba
+    mamba-cpp
   ];
   # currently assumes the location of the config repo
   dotfiles = "${config.home.homeDirectory}/nix-config/dotfiles";

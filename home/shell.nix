@@ -16,6 +16,7 @@
       export MYSQL_HISTFILE="$XDG_DATA_HOME"/mysql_history
       export PSQL_HISTORY="$XDG_STATE_HOME/psql_history"
       alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+      alias conda=mamba
     '';
     dotDir = ".config/zsh";
     history.path = "${config.xdg.dataHome}/zsh/zsh_history";
