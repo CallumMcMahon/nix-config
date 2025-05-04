@@ -11,7 +11,7 @@
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home = {
-    username = username;
+    # username = username;
     # homeDirectory = "/Users/${username}";
 
     # This value determines the Home Manager release that your
