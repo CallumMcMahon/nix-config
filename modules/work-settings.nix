@@ -13,9 +13,7 @@ in
   home-manager.users.${specialArgs.username} = {
     home.packages = [gdk pkgs.azure-cli];
     programs = {
-      zsh.initExtra = ''
-        source ~/nixos-config/modules/work_zshrc
-      '';
+      zsh.initExtra = "source ~/nix-config/modules/work_zshrc";
       git = {
         extraConfig.commit.pgpsign = true;
         signing = {

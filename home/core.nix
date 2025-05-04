@@ -15,6 +15,7 @@
     # rustc
     # cargo
     rustup # either cargo or rustup
+    duckdb
     libiconv
     nil
     age
@@ -22,7 +23,6 @@
     libfido2
     docker
     docker-compose
-    colima
     font-awesome
     fzf
     htop
@@ -31,7 +31,6 @@
     tree
     tmux
     unzip
-    micromamba
     xz
     p7zip
     aria2
@@ -42,17 +41,22 @@
     zstd
     alejandra # nix code formatter
     ranger
+    joshuto # trying ranger alternative
     nodejs # needed for neovim plugins
+    rclone
 
     # macOS
     iina
     iterm2
   ];
   unstablePackages = with pkgs-unstable; [
+    colima # xdg home support?
     uv
     helix
     zellij
     neovim
+    micromamba
+    mamba-cpp
   ];
   # currently assumes the location of the config repo
   dotfiles = "${config.home.homeDirectory}/nix-config/dotfiles";

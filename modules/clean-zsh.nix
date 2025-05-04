@@ -5,6 +5,7 @@ let
 in
 {
   environment.etc."zshenv".text = ''
+    SHELL_SESSIONS_DISABLE=1
     source ${xdgConfig.configHome}/zsh/.zshenv
   '';
   home-manager.users.${username}.home.file.".zshenv".enable = false;

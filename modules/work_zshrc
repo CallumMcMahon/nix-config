@@ -48,6 +48,9 @@ export SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 export REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 export CARGO_HTTP_CAINFO=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 export GRPC_DEFAULT_SSL_ROOTS_FILE_PATH=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+export GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1
+export GRPC_PYTHON_BUILD_SYSTEM_ZLIB=1
+export GRPC_DNS_RESOLVER='native'
 export ORACLE_HOME=$HOME/instantclient_19_8
 export TNS_ADMIN=$ORACLE_HOME/network/admin
 export PATH=$PATH:$ORACLE_HOME
@@ -69,8 +72,6 @@ export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
 export PATH="/opt/homebrew/anaconda3/bin":$PATH;
 export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
 export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
-export GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1
-export GRPC_PYTHON_BUILD_SYSTEM_ZLIB=1
 
 autoload -U colors && colors
 PS1="%{$fg[green]%}[local]%{$reset_color%}:%{$fg[blue]%}%1d%{$reset_color%}$ "
@@ -138,17 +139,5 @@ start_colima() {
   colima ssh -- sudo update-ca-certificates
   colima ssh -- sudo service docker restart
 }
-
-# >>> mamba initialize >>>
-# !! Contents within this block are managed by 'mamba init' !!
-export MAMBA_EXE='/Users/cam45819/.nix-profile/bin/micromamba';
-__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__mamba_setup"
-else
-    alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
-fi
-unset __mamba_setup
-# <<< mamba initialize <<<
 
 eval "$(direnv hook zsh)"
