@@ -59,7 +59,8 @@
     mamba-cpp
   ];
   # currently assumes the location of the config repo
-  dotfiles = "${config.home.homeDirectory}/nix-config/dotfiles";
+  # dotfiles = "${config.home.homeDirectory}/nix-config/dotfiles";
+  dotfiles = ../dotfiles ;
   mkOutOfStoreSymlink = config.lib.file.mkOutOfStoreSymlink;
 in {
   home.packages = stablePackages ++ unstablePackages;
