@@ -8,7 +8,7 @@
   home-manager.users.${specialArgs.username} = {
     home.packages = [
       pkgs.signal-desktop 
-      pkgs-unstable.whatsapp-for-mac 
+      # pkgs-unstable.whatsapp-for-mac 
       pkgs-unstable.raycast
     ];
   };
