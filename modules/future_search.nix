@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-unstable,
   specialArgs,
   ...
 }: let
@@ -13,6 +14,9 @@ in
   home-manager.users.${specialArgs.username} = {
     home.packages = [
       gdk 
+      pkgs.sops
+      pkgs-unstable.slack
+      pkgs.texlive.combined.scheme-full
       # pkgs.azure-cli
     ];
     # programs = {

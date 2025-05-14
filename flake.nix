@@ -66,6 +66,7 @@
         ./modules/nix-core.nix
         ./modules/system.nix
         ./modules/personal-settings.nix
+        ./modules/future_search.nix
 
         # home manager
         home-manager.darwinModules.home-manager
