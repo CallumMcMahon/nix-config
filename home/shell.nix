@@ -17,6 +17,7 @@
       export PSQL_HISTORY="$XDG_STATE_HOME/psql_history"
       alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
       alias conda=mamba
+      cursor() { open -a "/Applications/Cursor.app" "$@" ; }
     '';
     dotDir = ".config/zsh";
     history.path = "${config.xdg.dataHome}/zsh/zsh_history";
