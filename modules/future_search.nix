@@ -17,6 +17,11 @@ in
       pkgs.sops
       pkgs-unstable.slack
       pkgs.texlive.combined.scheme-full
+      pkgs.pnpm_10
+      # pkgs.lefthook
+      pkgs-unstable.lefthook
+      pkgs-unstable.supabase-cli
+      pkgs-unstable.watchexec 
       # pkgs.azure-cli
     ];
     # programs = {
