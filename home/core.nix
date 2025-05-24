@@ -118,9 +118,9 @@ in {
     };
 
     vscode = {
-      enable = true;
+      enable = false;
       package = pkgs-unstable.vscode;
-      extensions = with pkgs.vscode-extensions; [
+      profiles.default.extensions = with pkgs.vscode-extensions; [
         ms-python.python
         ms-python.debugpy
         ms-python.vscode-pylance

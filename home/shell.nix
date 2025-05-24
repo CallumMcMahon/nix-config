@@ -3,7 +3,7 @@
     enable = true;
     enableCompletion = true;
     completionInit = ''autoload -U compinit && compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"'';
-    initExtra = ''
+    initContent = ''
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
       export CARGO_HOME="$XDG_DATA_HOME"/cargo
       export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
