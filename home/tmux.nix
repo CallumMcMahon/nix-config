@@ -10,7 +10,7 @@
       {
         plugin = power-theme;
         extraConfig = ''
-           set -g @tmux_power_theme 'gold'
+          set -g @tmux_power_theme 'gold'
         '';
       }
       {
@@ -85,6 +85,6 @@
       # https://github.com/nix-community/home-manager/issues/5952
       set -gu default-command
       set -g default-command "$SHELL"
-      '';
+    '';
   };
 }

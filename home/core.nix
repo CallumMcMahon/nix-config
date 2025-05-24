@@ -60,7 +60,7 @@
   ];
   # currently assumes the location of the config repo
   # dotfiles = "${config.home.homeDirectory}/nix-config/dotfiles";
-  dotfiles = ../dotfiles ;
+  dotfiles = ../dotfiles;
   mkOutOfStoreSymlink = config.lib.file.mkOutOfStoreSymlink;
 in {
   home.packages = stablePackages ++ unstablePackages;
@@ -99,8 +99,8 @@ in {
       defaultEditor = true;
       vimAlias = true;
       package = pkgs-unstable.neovim;
-      plugins = [ pkgs.vimPlugins.lazy-nvim ];
-      # extraLuaConfig = 
+      plugins = [pkgs.vimPlugins.lazy-nvim];
+      # extraLuaConfig =
       #   # lua
       #   ''
       #     require("lazy").setup({
@@ -129,7 +129,7 @@ in {
 
         ms-toolsai.jupyter
         ms-toolsai.jupyter-keymap
-        
+
         yzhang.markdown-all-in-one
         waderyan.gitblame
         jnoortheen.nix-ide
@@ -166,7 +166,7 @@ in {
       enable = true;
       enableBashIntegration = true;
     };
-    
+
     direnv = {
       enable = true;
       enableZshIntegration = true;

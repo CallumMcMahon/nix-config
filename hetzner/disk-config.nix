@@ -1,6 +1,5 @@
 # Example to create a bios compatible gpt partition
-{ lib, ... }:
-{
+{lib, ...}: {
   disko.devices = {
     disk.disk1 = {
       device = lib.mkDefault "/dev/sda";
@@ -35,18 +34,18 @@
       };
     };
     lvm_vg.pool = {
-        type = "lvm_vg";
-        lvs.root = {
-            size = "100%FREE";
-            content = {
-              type = "filesystem";
-              format = "ext4";
-              mountpoint = "/";
-              mountOptions = [
-                "defaults"
-              ];
-            };
+      type = "lvm_vg";
+      lvs.root = {
+        size = "100%FREE";
+        content = {
+          type = "filesystem";
+          format = "ext4";
+          mountpoint = "/";
+          mountOptions = [
+            "defaults"
+          ];
         };
+      };
     };
   };
 }

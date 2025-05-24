@@ -3,8 +3,7 @@
   pkgs-unstable,
   specialArgs,
   ...
-}:
-{
+}: {
   home-manager.users.${specialArgs.username} = {
     home.packages = [
       # pkgs.signal-desktop  # no longer available on macos

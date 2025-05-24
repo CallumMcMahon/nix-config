@@ -60,7 +60,7 @@
       update = "submodule update --init --recursive";
       foreach = "submodule foreach";
     };
-    
-    ignores = [ "*.swp" ".idea" ".vscode" "research/" "lightning_logs/" ".mlflow" "outputs/" ".DS_Store" ".direnv/" ".envrc"];
+
+    ignores = ["*.swp" ".idea" ".vscode" "research/" "lightning_logs/" ".mlflow" "outputs/" ".DS_Store" ".direnv/" ".envrc"];
   };
 }

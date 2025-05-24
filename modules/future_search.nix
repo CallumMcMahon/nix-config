@@ -4,16 +4,15 @@
   specialArgs,
   ...
 }: let
-  gdk = pkgs.google-cloud-sdk.withExtraComponents( with pkgs.google-cloud-sdk.components; [
-      gke-gcloud-auth-plugin
-    ]);
-in
-{
+  gdk = pkgs.google-cloud-sdk.withExtraComponents (with pkgs.google-cloud-sdk.components; [
+    gke-gcloud-auth-plugin
+  ]);
+in {
   # https://github.com/NixOS/nix/issues/8081
   # nix.settings.ssl-cert-file = /etc/nix/ca_cert.pem;
   home-manager.users.${specialArgs.username} = {
     home.packages = [
-      gdk 
+      gdk
       pkgs.sops
       pkgs-unstable.slack
       pkgs.texlive.combined.scheme-full
@@ -21,7 +20,7 @@ in
       # pkgs.lefthook
       pkgs-unstable.lefthook
       pkgs-unstable.supabase-cli
-      pkgs-unstable.watchexec 
+      pkgs-unstable.watchexec
       # pkgs.azure-cli
     ];
     # programs = {
