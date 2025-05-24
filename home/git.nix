@@ -32,6 +32,8 @@
       core.editor = "vim";
       push.autoSetupRemote = true;
       rebase.autoStash = true;
+      remote.origin.prune = true;
+      url."git@github.com:".insteadOf = "git@personal:";
       # pull.rebase = true;
     };
 
