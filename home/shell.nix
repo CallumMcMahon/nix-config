@@ -26,8 +26,7 @@
       nb2script() { jupyter nbconvert --to script --no-prompt "$1"; }
       # scrape site for offline docs https://superuser.com/a/42428
       # wget -m -p -E -k -np www.example.com/documentation/
-      sshL() { ssh -L 6000:"$1":22 cam45819@ushpc-login2.gsk.com; }
-      upload() { rsync -rlptzv --progress --delete --exclude=.git --filter=":- .gitignore" . het:/root/repos/${PWD##*/} }
+      sshL() { ssh -L 6000:"$1":22 server_name; }
     '';
     dotDir = ".config/zsh";
     history.path = "${config.xdg.dataHome}/zsh/zsh_history";
@@ -79,5 +78,6 @@
     chrome = "open -a 'Google Chrome'";
     rcp = "rsync -ah --info=progress2";
     rsync2 = "rsync -chavzP --stats";
+    # upload() { rsync -rlptzv --progress --delete --exclude=.git --filter=":- .gitignore" . het:/root/repos/${PWD##*/} }
   };
 }

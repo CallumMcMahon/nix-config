@@ -80,7 +80,7 @@
         ./modules/zsh-xdg.nix
         ./modules/host-users.nix
         ./modules/nix-core.nix
-        ./modules/system.nix
+        ./modules/mac_system.nix
         ./modules/personal-settings.nix
         ./modules/future_search.nix
 
@@ -102,7 +102,7 @@
         ./modules/zsh-xdg.nix
         ./modules/host-users.nix
         ./modules/nix-core.nix
-        ./modules/system.nix
+        ./modules/mac_system.nix
         ./modules/work-settings.nix
 
         # home manager
