@@ -21,7 +21,7 @@
   nixpkgs.config.allowUnfree = true;
 
   # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  # services.nix-daemon.enable = true; nix-darwin enforces this is enabled now
   # Use this instead of services.nix-daemon.enable if you
   # don't wan't the daemon service to be managed for you.
   # nix.useDaemon = true;
