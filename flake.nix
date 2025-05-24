@@ -77,7 +77,7 @@
       specialArgs = airArgs;
       modules = [
         ./modules/apps.nix
-        ./modules/clean-zsh.nix
+        ./modules/zsh-xdg.nix
         ./modules/host-users.nix
         ./modules/nix-core.nix
         ./modules/system.nix
@@ -99,7 +99,7 @@
       specialArgs = proArgs;
       modules = [
         ./modules/apps.nix
-        ./modules/clean-zsh.nix
+        ./modules/zsh-xdg.nix
         ./modules/host-users.nix
         ./modules/nix-core.nix
         ./modules/system.nix
@@ -121,6 +121,7 @@
       modules = [
         disko.nixosModules.disko
         ./hetzner/configuration.nix
+        ./modules/conduit.nix
 
         # home manager
         home-manager.nixosModules.home-manager

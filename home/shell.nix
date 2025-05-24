@@ -19,9 +19,15 @@
       export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
       export MYSQL_HISTFILE="$XDG_DATA_HOME"/mysql_history
       export PSQL_HISTORY="$XDG_STATE_HOME/psql_history"
+      export DOCKER_HOST="unix://$HOME/.colima/default/docker.sock"
       alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
       alias conda=mamba
       cursor() { open -a "/Applications/Cursor.app" "$@" ; }
+      nb2script() { jupyter nbconvert --to script --no-prompt "$1"; }
+      # scrape site for offline docs https://superuser.com/a/42428
+      # wget -m -p -E -k -np www.example.com/documentation/
+      sshL() { ssh -L 6000:"$1":22 cam45819@ushpc-login2.gsk.com; }
+      upload() { rsync -rlptzv --progress --delete --exclude=.git --filter=":- .gitignore" . het:/root/repos/${PWD##*/} }
     '';
     dotDir = ".config/zsh";
     history.path = "${config.xdg.dataHome}/zsh/zsh_history";
@@ -69,5 +75,9 @@
   home.shellAliases = {
     lg = "lazygit";
     lzd = "lazydocker";
+    config = "git --git-dir=$HOME/.cfg/ --work-tree=$HOME";
+    chrome = "open -a 'Google Chrome'";
+    rcp = "rsync -ah --info=progress2";
+    rsync2 = "rsync -chavzP --stats";
   };
 }
