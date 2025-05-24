@@ -129,6 +129,7 @@
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = hetArgs;
           home-manager.users.${het.username} = import ./home;
+          home-manager.users.root = import ./home;
         }
       ];
     };
