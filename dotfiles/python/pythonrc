@@ -15,23 +15,23 @@ def setup_history():
     import readline
     from pathlib import Path
 
-    # Check PYTHON_HISTORY for future-compatibility with Python 3.13
-    if history := os.environ.get('PYTHON_HISTORY'):
-        history = Path(history)
-    # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html#variables
-    elif state_home := os.environ.get('XDG_STATE_HOME'):
-        state_home = Path(state_home)
-    else:
-        state_home = Path.home() / '.local' / 'state'
+    history_path_str = os.environ.get('PYTHON_HISTORY')
+    state_home_str = os.environ.get('XDG_STATE_HOME')
 
-    history: Path = history or state_home / 'python_history'
+    if history_path_str:
+        history = Path(history_path_str)
+    elif state_home_str:
+        history = Path(state_home_str) / 'python_history'
+    else:
+        history = Path.home() / '.local' / 'state' / 'python_history'
 
     # https://github.com/python/cpython/issues/105694
     if not history.is_file():
+        # If this breaks, manually copy ~/.python_history to ~/.local/state/python_history
         readline.write_history_file(str(history)) # breaks on macos + python3 without this.
 
-    readline.read_history_file(history)
-    atexit.register(readline.write_history_file, history)
+    readline.read_history_file(str(history))
+    atexit.register(readline.write_history_file, str(history))
 
 
 if is_vanilla():
