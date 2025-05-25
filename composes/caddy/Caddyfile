@@ -1,0 +1,19 @@
+{
+    # If you have Tailscale HTTPS certs enabled for your domain,
+    # Caddy will attempt to use them. Otherwise, it falls back to its own CA.
+    # acme_dns tailscale # Uncomment if you have a Tailscale API key for DNS-01 challenge
+    # Caddy will automatically attempt to use Tailscale-provisioned certificates for these domains.
+}
+
+mealie.callums-server.co.uk {
+    reverse_proxy mealie:9000
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+}
+
+# Optional: If you want to keep the .ts.net access for direct testing or as a fallback
+hetzner-cloud.coat-moth.ts.net {
+    respond "Hello from Caddy on hetzner-cloud.coat-moth.ts.net! Test Succeeded!"
+    # Caddy will use Tailscale-provided cert for this .ts.net name via the socket
+} 

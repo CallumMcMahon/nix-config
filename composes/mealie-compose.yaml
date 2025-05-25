@@ -17,7 +17,13 @@ services:
       PUID: 1000
       PGID: 1000
       TZ: Europe/London
-      BASE_URL: https://hetzner-cloud
+      BASE_URL: https://mealie.callums-server.co.uk
+    networks:
+      - proxy_network
 
 volumes:
   mealie-data:
+
+networks:
+  proxy_network:
+    external: true
