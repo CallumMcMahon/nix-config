@@ -1,0 +1,13 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+This is a NixOS configuration repository.
+
+It configures:
+- my personal ARM Mac
+- a server deployments to Hetzner cloud
+
+I use Cloudflare for my domain name, `callums-server.co.uk`
+Tailscale to keep services within a private network.
