@@ -121,7 +121,8 @@
       modules = [
         disko.nixosModules.disko
         ./hetzner/configuration.nix
-        ./modules/conduit.nix
+        ./modules/nix-core.nix
+        # ./modules/conduit.nix
 
         # home manager
         home-manager.nixosModules.home-manager
