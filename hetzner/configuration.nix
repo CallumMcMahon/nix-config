@@ -26,6 +26,40 @@
     enable = true;
   };
 
+  networking.firewall = {
+    enable = true;
+    allowPing = true; # Optional: allows ICMP ping requests to your server
+
+    # Define your public network interface.
+    # For Hetzner Cloud servers, this is typically 'eth0'.
+    # You can verify with `ip addr` on your server.
+    # If it's different, change 'eth0' below.
+    interfaces."eth0" = {
+      allowedTCPPorts = [
+        22 # SSH
+      ];
+      allowedUDPPorts = [
+        41641 # Tailscale WireGuard port
+      ];
+      # Ports 80, 443, and others will be blocked on this interface by default.
+    };
+
+    # Allow specific traffic on the Tailscale interface for your services
+    interfaces."tailscale0" = {
+      allowedTCPPorts = [
+        80 # Caddy HTTP
+        443 # Caddy HTTPS
+      ];
+      allowedUDPPorts = [
+        443 # Caddy HTTP/3
+      ];
+      # Add any other ports for services you want accessible *only* via Tailscale.
+    };
+
+    # Trust the loopback interface
+    trustedInterfaces = [ "lo" ];
+  };
+
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = map lib.lowPrio [
     pkgs.curl
