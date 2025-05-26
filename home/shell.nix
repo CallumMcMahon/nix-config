@@ -19,7 +19,6 @@
       export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
       export MYSQL_HISTFILE="$XDG_DATA_HOME"/mysql_history
       export PSQL_HISTORY="$XDG_STATE_HOME/psql_history"
-      export DOCKER_HOST="unix://$HOME/.colima/default/docker.sock"
       alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
       alias conda=mamba
       cursor() { open -a "/Applications/Cursor.app" "$@" ; }
@@ -79,5 +78,6 @@
     rcp = "rsync -ah --info=progress2";
     rsync2 = "rsync -chavzP --stats";
     # upload() { rsync -rlptzv --progress --delete --exclude=.git --filter=":- .gitignore" . het:/root/repos/${PWD##*/} }
+    # upload() { rsync -rlptzv --progress --delete --filter=":- .gitignore" . het:/root/repos/nix-config }
   };
 }

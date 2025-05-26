@@ -44,10 +44,6 @@
     joshuto # trying ranger alternative
     nodejs # needed for neovim plugins
     rclone
-
-    # macOS
-    iina
-    iterm2
   ];
   unstablePackages = with pkgs-unstable; [
     colima # xdg home support?
