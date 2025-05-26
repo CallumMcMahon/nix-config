@@ -6,8 +6,12 @@ alwaysApply: true
 This is a NixOS configuration repository.
 
 It configures:
-- my personal ARM Mac
+- my personal MacOS nix-darwin ARM laptop
 - a server deployments to Hetzner cloud
 
 I use Cloudflare for my domain name, `callums-server.co.uk`
 Tailscale to keep services within a private network.
+
+All commands and utilities that I have are documented in the NixOS config.
+Whenever recommending that I run a command that is non-standard (assuming it's not mentioned in this config), use
+`nix-shell -p <pkg>`
