@@ -1,5 +1,9 @@
 version: '3.8'
 
+secrets:
+  cloudflare_api_token:
+    file: ./cloudflare_api_token.env
+
 services:
   caddy:
     build:
@@ -13,13 +17,14 @@ services:
       - "80:80"
       - "443:443"
       - "443:443/udp" # For HTTP/3
-    environment:
-      - CLOUDFLARE_API_TOKEN=
+    command: caddy run --config /etc/caddy/Caddyfile --adapter caddyfile --envfile /run/secrets/cloudflare_api_token
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
       - /run/tailscale/tailscaled.sock:/var/run/tailscale/tailscaled.sock:ro
+    secrets:
+      - cloudflare_api_token
     networks:
       - proxy_network
 
