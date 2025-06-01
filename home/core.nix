@@ -44,6 +44,7 @@
     joshuto # trying ranger alternative
     nodejs # needed for neovim plugins
     rclone
+    restic
   ];
   unstablePackages = with pkgs-unstable; [
     colima # xdg home support?
