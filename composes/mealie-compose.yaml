@@ -10,7 +10,7 @@ services:
         limits:
           memory: 1000M # 
     volumes:
-      - mealie-data:/app/data/
+      - /var/lib/mealie:/app/data/
     environment:
       # Set Backend ENV Variables Here
       ALLOW_SIGNUP: "false"
@@ -20,9 +20,6 @@ services:
       BASE_URL: https://mealie.callums-server.co.uk
     networks:
       - proxy_network
-
-volumes:
-  mealie-data:
 
 networks:
   proxy_network:
