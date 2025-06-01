@@ -73,10 +73,13 @@
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO3j3IjwJqhr6H8J/LE3hT3JpKuiKaYM23H6PwDV19iE"
   ];
-  users.users.callum = {
+  users.users.${username} = {
     isNormalUser = true;
-    # home = "/home/callum";
-    # description = "callum's home";
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO3j3IjwJqhr6H8J/LE3hT3JpKuiKaYM23H6PwDV19iE"
+    ];
+    # home = "/home/${username}";
+    # description = "${username}'s home";
   };
   system.stateVersion = "24.05";
   programs.nix-ld.enable = true;

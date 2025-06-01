@@ -78,6 +78,6 @@
     rcp = "rsync -ah --info=progress2";
     rsync2 = "rsync -chavzP --stats";
     # upload() { rsync -rlptzv --progress --delete --exclude=.git --filter=":- .gitignore" . het:/root/repos/${PWD##*/} }
-    # upload() { rsync -rlptzv --progress --delete --filter=":- .gitignore" . het:/root/repos/nix-config }
+    # rsync -rlptzv --progress --delete --filter='+ **/*.env' --filter=':- .gitignore' . het:/root/repos/nix-config
   };
 }
