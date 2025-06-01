@@ -83,11 +83,15 @@
   };
   system.stateVersion = "24.05";
   programs.nix-ld.enable = true;
+  
+  # Allow rootless docker to bind to privileged ports
+  boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 80;
+  
   virtualisation.docker = {
     enable = true;
     rootless = {
-      enable = false;
-      # setSocketVariable = true;
+      enable = true;
+      setSocketVariable = true;
     };
   };
 }
