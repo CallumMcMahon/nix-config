@@ -78,6 +78,7 @@
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO3j3IjwJqhr6H8J/LE3hT3JpKuiKaYM23H6PwDV19iE"
     ];
+    linger = true; # stops rootless docker from exiting
     # home = "/home/${username}";
     # description = "${username}'s home";
   };
