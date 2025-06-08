@@ -57,7 +57,7 @@
   ];
   # currently assumes the location of the config repo
   # dotfiles = "${config.home.homeDirectory}/nix-config/dotfiles";
-  dotfiles = ../dotfiles;
+  dotfiles = builtins.toString (builtins.path { path = ../dotfiles; });
   mkOutOfStoreSymlink = config.lib.file.mkOutOfStoreSymlink;
 in {
   home.packages = stablePackages ++ unstablePackages;
@@ -136,7 +136,7 @@ in {
       ];
     };
 
-    # A modern replacement for ‘ls’
+    # A modern replacement for 'ls'
     # useful in bash/zsh prompt, not in nushell.
     eza = {
       enable = true;
