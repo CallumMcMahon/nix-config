@@ -26,6 +26,16 @@
       # scrape site for offline docs https://superuser.com/a/42428
       # wget -m -p -E -k -np www.example.com/documentation/
       sshL() { ssh -L 6000:"$1":22 server_name; }
+      # Fix completions for uv run.
+      _uv_run_mod() {
+        if [[ "$words[2]" == "run" && "$words[CURRENT]" != -* ]]; then
+            _arguments '*:filename:_files'
+        else
+            _uv "$@"
+        fi
+      }
+      compdef _uv_run_mod uv
+    }
     '';
     dotDir = ".config/zsh";
     history.path = "${config.xdg.dataHome}/zsh/zsh_history";
