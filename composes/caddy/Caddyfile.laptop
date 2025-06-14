@@ -1,0 +1,10 @@
+firefly.callums-server.co.uk {
+    reverse_proxy firefly_iii_core:8080
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+}
+
+callums-macbook-air.coat-moth.ts.net {
+    respond "Hello from Caddy on callums-macbook-air.coat-moth.ts.net! Test Succeeded!"
+} 
