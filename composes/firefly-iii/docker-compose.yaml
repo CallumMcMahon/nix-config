@@ -11,8 +11,8 @@ services:
       - firefly_iii
     ports:
       - 80:8080
-    depends_on:
-      - db
+    # depends_on:
+    #   - db
   # db:
   #   image: mariadb:lts
   #   hostname: db
@@ -41,9 +41,12 @@ services:
     networks:
       - firefly_iii
 
-volumes:
-   firefly_iii_upload:
-  #  firefly_iii_db:
+# volumes:
+#    firefly_iii_upload:
+#      driver_opts:
+#        type: bind
+#        device: /Users/callum/.local/state/firefly-iii
+#    firefly_iii_db:
 
 networks:
   firefly_iii:
