@@ -109,7 +109,7 @@
   boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 80;
   
   virtualisation.docker = {
-    enable = true;
+    enable = false;
     rootless = {
       enable = true;
       setSocketVariable = true;
