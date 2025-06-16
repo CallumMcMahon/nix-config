@@ -26,6 +26,26 @@
     enable = true;
   };
 
+  services.fail2ban = {
+    enable = true;
+    
+    bantime-increment = {
+      enable = true;
+      multipliers = "1 2 4 8 16 32 64";
+      maxtime = "168h";
+      overalljails = true;
+    };
+    
+    ignoreIP = [
+      "127.0.0.1/8"
+      "::1"
+      "10.0.0.0/8"
+      "172.16.0.0/12"
+      "192.168.0.0/16"
+      "100.64.0.0/10"  # Tailscale CGNAT range
+    ];
+  };
+
   networking.firewall = {
     enable = true;
     allowPing = true; # Optional: allows ICMP ping requests to your server
