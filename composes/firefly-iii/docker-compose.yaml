@@ -1,16 +1,16 @@
 services:
-  app:
+  firefly:
     image: fireflyiii/core:latest
-    hostname: app
-    container_name: firefly_iii_core
+    container_name: firefly
     restart: no
     volumes:
-      - firefly_iii_upload:/var/www/html/storage/upload
+      - /Users/callum/.local/state/firefly-iii:/var/www/html/storage/upload
     env_file: .env
     networks:
-      - firefly_iii
+      # - firefly_iii
+      - proxy_network
     ports:
-      - 80:8080
+      - 9988:8080
     # depends_on:
     #   - db
   # db:
@@ -39,7 +39,8 @@ services:
       | crontab - 
       && crond -f -L /dev/stdout"
     networks:
-      - firefly_iii
+      # - firefly_iii
+      - proxy_network
 
 # volumes:
 #    firefly_iii_upload:
@@ -49,5 +50,7 @@ services:
 #    firefly_iii_db:
 
 networks:
-  firefly_iii:
-    driver: bridge
+  proxy_network:
+    external: true
+  # firefly_iii:
+  #   driver: bridge

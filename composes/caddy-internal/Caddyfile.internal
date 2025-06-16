@@ -1,0 +1,16 @@
+{
+	# do I need this?
+}
+firefly.callums-server.co.uk {
+	reverse_proxy firefly:8080
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+        resolvers 8.8.8.8
+		# https://caddy.community/t/could-not-determine-zone-for-domain/18720/10
+		# maybe colima config could avoid this?
+	}
+}
+
+callums-macbook-air.coat-moth.ts.net {
+	respond "Hello from Caddy on callums-macbook-air.coat-moth.ts.net! Test Succeeded!"
+}

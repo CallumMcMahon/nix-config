@@ -1,0 +1,39 @@
+version: '3.8'
+
+secrets:
+  cloudflare_api_token:
+    file: ./cloudflare_api_token.env
+
+services:
+  caddy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        CADDY_VERSION: 2 # Or your desired Caddy version like 2.8.4
+    container_name: caddy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp" # For HTTP/3
+    command: caddy run --config /etc/caddy/Caddyfile --adapter caddyfile --envfile /run/secrets/cloudflare_api_token
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      # below two lines are different from caddy-internal/docker-compose.yaml
+      - ./Caddyfile.hetzner:/etc/caddy/Caddyfile
+      - /run/tailscale/tailscaled.sock:/var/run/tailscale/tailscaled.sock:ro
+    secrets:
+      - cloudflare_api_token
+    networks:
+      - proxy_network
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  proxy_network:
+    name: proxy_network
+    driver: bridge
