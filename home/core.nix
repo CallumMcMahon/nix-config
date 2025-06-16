@@ -15,6 +15,7 @@
     # rustc
     # cargo
     rustup # either cargo or rustup
+    rsync # default macos version is old
     duckdb
     libiconv
     nil
