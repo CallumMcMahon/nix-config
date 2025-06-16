@@ -35,7 +35,6 @@
         fi
       }
       compdef _uv_run_mod uv
-    }
     '';
     dotDir = ".config/zsh";
     history.path = "${config.xdg.dataHome}/zsh/zsh_history";
