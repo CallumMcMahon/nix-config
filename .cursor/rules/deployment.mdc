@@ -15,3 +15,6 @@ Tailscale to keep services within a private network.
 All commands and utilities that I have are documented in the NixOS config.
 Whenever recommending that I run a command that is non-standard (assuming it's not mentioned in this config), use
 `nix-shell -p <pkg>`
+
+## Mac setup
+Run `sudo nixos-rebuild switch --flake .` to rebuild my environment.
