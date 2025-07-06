@@ -4,7 +4,9 @@ services:
     container_name: firefly
     restart: no
     volumes:
-      - /Users/callum/.local/state/firefly-iii:/var/www/html/storage/upload
+      - /Users/callum/.local/share/firefly-iii/upload:/var/www/html/storage/upload
+      - /Users/callum/.local/share/firefly-iii/database:/var/www/html/storage/database
+      # - /Users/callum/.local/share/firefly-iii:/var/www/html/storage
     env_file: .env
     networks:
       # - firefly_iii
