@@ -50,11 +50,14 @@
   unstablePackages = with pkgs-unstable; [
     colima # xdg home support?
     uv
-    helix
-    zellij
-    neovim
     micromamba
     mamba-cpp
+
+    neovim
+    helix
+    # zed-editor-fhs
+    zed-editor
+    zellij
   ];
   # currently assumes the location of the config repo
   # dotfiles = "${config.home.homeDirectory}/nix-config/dotfiles";
