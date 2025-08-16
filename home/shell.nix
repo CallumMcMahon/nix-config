@@ -23,6 +23,9 @@
       alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
       alias conda=mamba
       cursor() { open -a "/Applications/Cursor.app" "$@" ; }
+      if [[ "$OSTYPE" == "darwin"* ]]; then
+        ulimit -n 16384
+      fi
       nb2script() { jupyter nbconvert --to script --no-prompt "$1"; }
       # scrape site for offline docs https://superuser.com/a/42428
       # wget -m -p -E -k -np www.example.com/documentation/
