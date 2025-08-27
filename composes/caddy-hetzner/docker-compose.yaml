@@ -1,33 +1,26 @@
-version: '3.8'
-
-secrets:
-  cloudflare_api_token:
-    file: ./cloudflare_api_token.env
-
 services:
   caddy:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        CADDY_VERSION: 2 # Or your desired Caddy version like 2.8.4
-    container_name: caddy
-    restart: always
+    image: caddy-cloudflare:latest
+    container_name: caddy-hetzner
+    restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
-      - "443:443/udp" # For HTTP/3
-    command: caddy run --config /etc/caddy/Caddyfile --adapter caddyfile --envfile /run/secrets/cloudflare_api_token
-    volumes:
-      - caddy_data:/data
-      - caddy_config:/config
-      # below two lines are different from caddy-internal/docker-compose.yaml
-      - ./Caddyfile.hetzner:/etc/caddy/Caddyfile
-      - /run/tailscale/tailscaled.sock:/var/run/tailscale/tailscaled.sock:ro
-    secrets:
-      - cloudflare_api_token
+    env_file:
+      - ./cloudflare_api_token.env
     networks:
       - proxy_network
+    volumes:
+      - ./Caddyfile.hetzner:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    extra_hosts:
+      - "acme-v02.api.letsencrypt.org:172.65.32.248"
+      - "acme-staging-v02.api.letsencrypt.org:172.65.46.172"
+      - "host.docker.internal:host-gateway"
 
 volumes:
   caddy_data:
@@ -35,5 +28,6 @@ volumes:
 
 networks:
   proxy_network:
-    name: proxy_network
-    driver: bridge
+    external: true
+
+

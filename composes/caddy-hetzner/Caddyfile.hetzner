@@ -3,17 +3,22 @@
     # Caddy will attempt to use them. Otherwise, it falls back to its own CA.
     # acme_dns tailscale # Uncomment if you have a Tailscale API key for DNS-01 challenge
     # Caddy will automatically attempt to use Tailscale-provisioned certificates for these domains.
+    email mcmahon.callum@gmail.com
+    acme_ca https://acme-v02.api.letsencrypt.org/directory
 }
 
 mealie.callums-server.co.uk {
     reverse_proxy mealie:9000
     tls {
         dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+        resolvers 1.1.1.1 8.8.8.8
     }
 }
 
-# Optional: If you want to keep the .ts.net access for direct testing or as a fallback
-hetzner-cloud.coat-moth.ts.net {
-    respond "Hello from Caddy on hetzner-cloud.coat-moth.ts.net! Test Succeeded!"
-    # Caddy will use Tailscale-provided cert for this .ts.net name via the socket
-} 
+changedetection.callums-server.co.uk, changedetector.callums-server.co.uk {
+    reverse_proxy host.docker.internal:5000
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+        resolvers 1.1.1.1 8.8.8.8
+    }
+}
