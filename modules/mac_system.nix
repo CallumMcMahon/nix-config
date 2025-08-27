@@ -35,7 +35,9 @@
       NSGlobalDomain = {
         # AppleInterfaceStyle = "Dark";  # dark mode
         # AppleKeyboardUIMode = 3;  # Mode 3 enables full keyboard control.
-        # ApplePressAndHoldEnabled = true;  # enable press and hold
+        ApplePressAndHoldEnabled = false;  # enable press and hold accents
+        # TODO: above doesn't seem to work, manually run this instead then log out/back
+        # defaults write -g ApplePressAndHoldEnabled -bool false
 
         # sets how long it takes before it starts repeating.
         InitialKeyRepeat = 15; # normal minimum is 15 (225 ms), maximum is 120 (1800 ms)

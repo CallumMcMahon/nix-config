@@ -7,7 +7,9 @@
   stablePackages = with pkgs; [
     iina
     iterm2
+    # karabiner-elements
   ];
+  # services.karabiner-elements.enable = true;
   unstablePackages = with pkgs-unstable; [
     raycast
   ];
@@ -21,6 +23,7 @@ in {
   };
   services.tailscale = {
     enable = true;
-    package = pkgs-unstable.tailscale;
+    # package = pkgs-unstable.tailscale;
+    package = pkgs.tailscale;
   };
 }

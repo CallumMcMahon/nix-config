@@ -17,6 +17,7 @@ if vim.g.vscode then
   vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, { desc = 'Rename' })
   vim.keymap.set('n', '<leader>co', vim.lsp.buf.code_action, { desc = 'Code Action' })
   
+  
   -- setting a better default
   local vscode = require('vscode')
   -- "VSCode's jumplist is used instead of Neovim's", see vscode-neovim's README
@@ -26,7 +27,9 @@ if vim.g.vscode then
   vim.keymap.set('n', '<leader>e', function() vscode.action('workbench.action.toggleSidebarVisibility') end, { desc = 'Toggle Sidebar' })
   vim.keymap.set('n', '<leader>cf', function() vscode.action('editor.action.formatDocument') end, { desc = 'Format Document' })
   vim.keymap.set('n', '<leader>cx', function() vscode.action('editor.action.fixAll') end, { desc = 'Fix All' })
-  
+  vim.keymap.set('i', '<C-l>', function() vscode.action('editor.action.inlineSuggest.acceptNextWord') end, { desc = 'Inline Suggest: Accept Next Word' })
+  -- vim.keymap.set('n', '<C-l>', function() vscode.action('editor.action.inlineSuggest.acceptNextWord') end, { desc = 'Inline Suggest: Accept Next Word' })
   -- Suppress unsupported LSP function warnings
   vim.lsp.buf.clear_references = function() end
+  
 end

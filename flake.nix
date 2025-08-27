@@ -33,10 +33,15 @@
       useremail = "mcmahon.callum@gmail.com";
       hostname = "Callums-MacBook-Air";
     };
-    pro = {
+    gsk = {
       username = "cam45819";
       useremail = "callum.a.mcmahon@gsk.com";
       hostname = "GSKWMGFJ62X0JYX";
+    };
+    m4 = {
+      username = "callum";
+      useremail = "mcmahon.callum@gmail.com";
+      hostname = "Callums-MacBook-Pro";
     };
     het = {
       username = "callum";
@@ -58,12 +63,12 @@
         system = "aarch64-darwin";
       }
       // air;
-    proArgs =
+    m4Args =
       {
         inherit inputs pkgs-unstable;
         system = "aarch64-darwin";
       }
-      // pro;
+      // m4;
     hetArgs =
       {
         inherit inputs;
@@ -94,9 +99,31 @@
         }
       ];
     };
-    darwinConfigurations."${pro.hostname}" = darwin.lib.darwinSystem {
+    darwinConfigurations."${m4.hostname}" = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
-      specialArgs = proArgs;
+      specialArgs = m4Args;
+      modules = [
+        ./modules/apps.nix
+        ./modules/zsh-xdg.nix
+        ./modules/host-users.nix
+        ./modules/nix-core.nix
+        ./modules/mac_system.nix
+        ./modules/personal-settings.nix
+        ./modules/future_search.nix
+
+        # home manager
+        home-manager.darwinModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = m4Args;
+          home-manager.users.${m4.username} = import ./home;
+        }
+      ];
+    };
+    darwinConfigurations."${gsk.hostname}" = darwin.lib.darwinSystem {
+      system = "aarch64-darwin";
+      specialArgs = m4Args;
       modules = [
         ./modules/apps.nix
         ./modules/zsh-xdg.nix
@@ -110,8 +137,8 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = proArgs;
-          home-manager.users.${pro.username} = import ./home;
+          home-manager.extraSpecialArgs = m4Args;
+          home-manager.users.${m4.username} = import ./home;
         }
       ];
     };

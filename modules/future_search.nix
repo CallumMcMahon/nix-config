@@ -14,7 +14,7 @@ in {
     home.packages = [
       gdk
       pkgs.sops
-      pkgs-unstable.slack
+      # pkgs-unstable.slack
       pkgs.texlive.combined.scheme-full
       pkgs.pnpm_10
       # pkgs.lefthook
@@ -22,6 +22,9 @@ in {
       pkgs-unstable.supabase-cli
       pkgs-unstable.watchexec
       # pkgs.azure-cli
+
+      pkgs.blender
+      # pkgs.sweethome3d.application
     ];
     # programs = {
     #   zsh.initExtra = "source ~/nix-config/modules/work_zshrc";
