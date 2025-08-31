@@ -85,6 +85,8 @@
     pkgs.curl
     pkgs.gitMinimal
     pkgs.neovim
+    pkgs.cacert
+    pkgs.passt
   ];
 
   networking.hostName = hostname;
@@ -113,6 +115,21 @@
     rootless = {
       enable = true;
       setSocketVariable = true;
+      daemon.settings = {
+        dns = [ "1.1.1.1" "8.8.8.8" ];
+        registry-mirrors = [ "https://mirror.gcr.io" ];
+      };
+    };
+  };
+
+  # Configure systemd user service for Docker rootless (RootlessKit) to use pasta networking
+  systemd.user.services.docker = {
+    environment = {
+      DOCKERD_ROOTLESS_ROOTLESSKIT_NET = "pasta";
+      DOCKERD_ROOTLESS_ROOTLESSKIT_PORT_DRIVER = "implicit";
+      # Ensure CA certs are available to dockerd and helpers
+      SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt";
+      SSL_CERT_DIR = "/etc/ssl/certs";
     };
   };
 }
