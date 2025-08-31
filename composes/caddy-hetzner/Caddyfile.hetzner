@@ -7,6 +7,14 @@
     acme_ca https://acme-v02.api.letsencrypt.org/directory
 }
 
+dash.callums-server.co.uk {
+    reverse_proxy heimdall:80
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+        resolvers 1.1.1.1 8.8.8.8
+    }
+}
+
 mealie.callums-server.co.uk {
     reverse_proxy mealie:9000
     tls {
@@ -16,7 +24,7 @@ mealie.callums-server.co.uk {
 }
 
 changedetection.callums-server.co.uk, changedetector.callums-server.co.uk {
-    reverse_proxy host.docker.internal:5000
+    reverse_proxy changedetection:5000
     tls {
         dns cloudflare {env.CLOUDFLARE_API_TOKEN}
         resolvers 1.1.1.1 8.8.8.8
