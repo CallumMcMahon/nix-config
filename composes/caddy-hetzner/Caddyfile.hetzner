@@ -1,8 +1,4 @@
 {
-    # If you have Tailscale HTTPS certs enabled for your domain,
-    # Caddy will attempt to use them. Otherwise, it falls back to its own CA.
-    # acme_dns tailscale # Uncomment if you have a Tailscale API key for DNS-01 challenge
-    # Caddy will automatically attempt to use Tailscale-provisioned certificates for these domains.
     email mcmahon.callum@gmail.com
     acme_ca https://acme-v02.api.letsencrypt.org/directory
 }
