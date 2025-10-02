@@ -1,0 +1,20 @@
+services:
+  heimdall:
+    image: lscr.io/linuxserver/heimdall:latest
+    container_name: heimdall
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - heimdall-config:/config
+    networks:
+      - proxy_network
+
+volumes:
+  heimdall-config:
+
+networks:
+  proxy_network:
+    external: true
