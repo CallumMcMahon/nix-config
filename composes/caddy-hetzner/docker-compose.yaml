@@ -1,3 +1,7 @@
+secrets:
+  cloudflare_api_token:
+    file: ./cloudflare_api_token.env
+
 services:
   caddy:
     build:
@@ -9,18 +13,16 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    env_file:
-      - ./cloudflare_api_token.env
-    networks:
-      - proxy_network
     volumes:
-      - ./Caddyfile.hetzner:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
-    extra_hosts:
-      - "acme-v02.api.letsencrypt.org:172.65.32.248"
-      - "acme-staging-v02.api.letsencrypt.org:172.65.46.172"
-      - "host.docker.internal:host-gateway"
+      # below line is different from caddy-internal/docker-compose.yaml
+      - ./Caddyfile.hetzner:/etc/caddy/Caddyfile:ro
+    networks:
+      - proxy_network
+    command: caddy run --config /etc/caddy/Caddyfile --adapter caddyfile --envfile /run/secrets/cloudflare_api_token
+    secrets:
+      - cloudflare_api_token
 
 volumes:
   caddy_data:
@@ -29,5 +31,3 @@ volumes:
 networks:
   proxy_network:
     external: true
-
-
