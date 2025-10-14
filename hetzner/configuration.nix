@@ -26,59 +26,59 @@
     enable = true;
   };
 
-  services.fail2ban = {
-    enable = true;
+  # services.fail2ban = {
+  #   enable = true;
     
-    bantime-increment = {
-      enable = true;
-      multipliers = "1 2 4 8 16 32 64";
-      maxtime = "168h";
-      overalljails = true;
-    };
+  #   bantime-increment = {
+  #     enable = true;
+  #     multipliers = "1 2 4 8 16 32 64";
+  #     maxtime = "168h";
+  #     overalljails = true;
+  #   };
     
-    ignoreIP = [
-      "127.0.0.1/8"
-      "::1"
-      "10.0.0.0/8"
-      "172.16.0.0/12"
-      "192.168.0.0/16"
-      "100.64.0.0/10"  # Tailscale CGNAT range
-    ];
-  };
+  #   ignoreIP = [
+  #     "127.0.0.1/8"
+  #     "::1"
+  #     "10.0.0.0/8"
+  #     "172.16.0.0/12"
+  #     "192.168.0.0/16"
+  #     "100.64.0.0/10"  # Tailscale CGNAT range
+  #   ];
+  # };
 
-  networking.firewall = {
-    enable = true;
-    allowPing = true; # Optional: allows ICMP ping requests to your server
+  # networking.firewall = {
+  #   enable = true;
+  #   allowPing = true; # Optional: allows ICMP ping requests to your server
 
-    # Define your public network interface.
-    # For Hetzner Cloud servers, this is typically 'eth0'.
-    # You can verify with `ip addr` on your server.
-    # If it's different, change 'eth0' below.
-    interfaces."eth0" = {
-      allowedTCPPorts = [
-        22 # SSH
-      ];
-      allowedUDPPorts = [
-        41641 # Tailscale WireGuard port
-      ];
-      # Ports 80, 443, and others will be blocked on this interface by default.
-    };
+  #   # Define your public network interface.
+  #   # For Hetzner Cloud servers, this is typically 'eth0'.
+  #   # You can verify with `ip addr` on your server.
+  #   # If it's different, change 'eth0' below.
+  #   interfaces."eth0" = {
+  #     allowedTCPPorts = [
+  #       22 # SSH
+  #     ];
+  #     allowedUDPPorts = [
+  #       41641 # Tailscale WireGuard port
+  #     ];
+  #     # Ports 80, 443, and others will be blocked on this interface by default.
+  #   };
 
-    # Allow specific traffic on the Tailscale interface for your services
-    interfaces."tailscale0" = {
-      allowedTCPPorts = [
-        80 # Caddy HTTP
-        443 # Caddy HTTPS
-      ];
-      allowedUDPPorts = [
-        443 # Caddy HTTP/3
-      ];
-      # Add any other ports for services you want accessible *only* via Tailscale.
-    };
+  #   # Allow specific traffic on the Tailscale interface for your services
+  #   interfaces."tailscale0" = {
+  #     allowedTCPPorts = [
+  #       80 # Caddy HTTP
+  #       443 # Caddy HTTPS
+  #     ];
+  #     allowedUDPPorts = [
+  #       443 # Caddy HTTP/3
+  #     ];
+  #     # Add any other ports for services you want accessible *only* via Tailscale.
+  #   };
 
-    # Trust the loopback interface
-    trustedInterfaces = [ "lo" ];
-  };
+  #   # Trust the loopback interface
+  #   trustedInterfaces = [ "lo" ];
+  # };
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = map lib.lowPrio [
@@ -122,14 +122,11 @@
     };
   };
 
-  # Configure systemd user service for Docker rootless (RootlessKit) to use pasta networking
   systemd.user.services.docker = {
+    path = [ pkgs.passt ];
     environment = {
       DOCKERD_ROOTLESS_ROOTLESSKIT_NET = "pasta";
       DOCKERD_ROOTLESS_ROOTLESSKIT_PORT_DRIVER = "implicit";
-      # Ensure CA certs are available to dockerd and helpers
-      SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt";
-      SSL_CERT_DIR = "/etc/ssl/certs";
     };
   };
 }
