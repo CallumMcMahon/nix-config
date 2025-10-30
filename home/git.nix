@@ -34,11 +34,17 @@
       rebase.autoStash = true;
       remote.origin.prune = true;
       url."git@github.com:".insteadOf = "git@personal:";
-      # pull.rebase = true;
+      pull.rebase = false;
+    };
+
+    difftastic = {
+      enable = true;
+      background = "dark";
+      # display = "side-by-side";
     };
 
     delta = {
-      enable = true;
+      enable = false;
       options = {
         features = "side-by-side";
       };
@@ -55,6 +61,11 @@
       ca = "commit -am";
       dc = "diff --cached";
       amend = "commit --amend -m";
+
+      # difftastic aliases
+      dft = "diff";
+      dlog = "log -p --ext-diff";
+      dshow = "show --ext-diff";
 
       # aliases for submodule
       update = "submodule update --init --recursive";

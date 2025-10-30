@@ -55,8 +55,6 @@
 
     neovim
     helix
-    # zed-editor-fhs
-    zed-editor
     zellij
   ];
   # currently assumes the location of the config repo
@@ -90,6 +88,10 @@ in {
     "python" = {
       source = mkOutOfStoreSymlink "${dotfiles}/python";
       recursive = true;
+    };
+    "lazygit" = {
+      source = mkOutOfStoreSymlink "${dotfiles}/lazygit/config.yml";
+      target = "lazygit/config.yml";
     };
   };
 

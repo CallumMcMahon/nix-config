@@ -1,3 +1,7 @@
+# git:
+#   pagers:
+#     - useExternalDiffGitConfig: true
+# Changes to a list of pagers in lazygit 
 git:
-  pagers:
-    - useExternalDiffGitConfig: true
+  paging:
+    externalDiffCommand: difft --color=always --display=inline --background=light
