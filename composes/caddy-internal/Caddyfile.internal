@@ -10,6 +10,13 @@ firefly.callums-server.co.uk {
 		# maybe colima config could avoid this?
 	}
 }
+jellyfin.callums-server.co.uk {
+	reverse_proxy jellyfin:8096
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+        resolvers 8.8.8.8
+	}
+}
 
 callums-macbook-air.coat-moth.ts.net {
 	respond "Hello from Caddy on callums-macbook-air.coat-moth.ts.net! Test Succeeded!"
