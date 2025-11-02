@@ -43,6 +43,11 @@
       useremail = "mcmahon.callum@gmail.com";
       hostname = "Callums-MacBook-Pro";
     };
+    mini = {
+      username = "fibonar";
+      useremail = "mcmahon.callum@gmail.com";
+      hostname = "Callums-Mac-Mini";
+    };
     het = {
       username = "callum";
       useremail = "mcmahon.callum@gmail.com";
@@ -69,6 +74,12 @@
         system = "aarch64-darwin";
       }
       // m4;
+    miniArgs =
+      {
+        inherit inputs pkgs-unstable;
+        system = "aarch64-darwin";
+      }
+      // mini;
     hetArgs =
       {
         inherit inputs;
@@ -117,7 +128,45 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = m4Args;
-          home-manager.users.${m4.username} = import ./home;
+          home-manager.users.${m4.username} = {
+            imports = [./home];
+            home.packages = [pkgs-unstable.zed-editor];
+          };
+        }
+      ];
+    };
+    darwinConfigurations."${mini.hostname}" = darwin.lib.darwinSystem {
+      system = "aarch64-darwin";
+      specialArgs = miniArgs;
+      modules = [
+        ./modules/zsh-xdg.nix
+        ./modules/host-users.nix
+        ./modules/nix-core.nix
+        ./modules/mac_system.nix
+
+        {
+          services.tailscale = {
+            enable = true;
+            package = nixpkgs.legacyPackages.aarch64-darwin.tailscale;
+          };
+          services.jellyfin = {
+            enable = true;
+            # package = nixpkgs.legacyPackages.aarch64-darwin.jellyfin;
+          };
+          environment.systemPackages = with nixpkgs.legacyPackages.aarch64-darwin; [
+            jellyfin
+            jellyfin-web
+            jellyfin-ffmpeg
+          ];
+        }
+
+        # home manager
+        home-manager.darwinModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = miniArgs;
+          home-manager.users.${mini.username} = import ./home;
         }
       ];
     };
