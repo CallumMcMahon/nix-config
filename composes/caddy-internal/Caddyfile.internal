@@ -11,7 +11,20 @@ firefly.callums-server.co.uk {
 	}
 }
 jellyfin.callums-server.co.uk {
-	reverse_proxy jellyfin:8096
+	reverse_proxy host.docker.internal:8096 {
+		header_up X-Real-IP {remote_host}
+		header_up X-Forwarded-For {remote_host}
+		header_up X-Forwarded-Proto {scheme}
+		header_up X-Forwarded-Host {host}
+	}
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+        resolvers 8.8.8.8
+	}
+}
+
+audiobooks.callums-server.co.uk {
+	reverse_proxy host.docker.internal:13378
     tls {
         dns cloudflare {env.CLOUDFLARE_API_TOKEN}
         resolvers 8.8.8.8
