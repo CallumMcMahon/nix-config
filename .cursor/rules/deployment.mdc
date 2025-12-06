@@ -8,6 +8,7 @@ This is a NixOS configuration repository.
 It configures:
 - my personal MacOS nix-darwin ARM laptop
 - a server deployments to Hetzner cloud
+- a personal mac mini
 
 I use Cloudflare for my domain name, `callums-server.co.uk`
 Tailscale to keep services within a private network.
@@ -18,3 +19,13 @@ Whenever recommending that I run a command that is non-standard (assuming it's n
 
 ## Mac setup
 Run `sudo nixos-rebuild switch --flake .` to rebuild my environment.
+
+# Mac Mini setup
+Push code with something like:
+rsync -av /Users/callum/nix-config mini:/Users/fibonar/nix-config
+
+Restart containers with something like
+ssh mini "cd /Users/fibonar/nix-config/composes/<service> && DOCKER_HOST=unix:///Users/fibonar/.config/colima/default/docker.sock docker compose up -d"
+
+On rare occasions where sudo commands are needed like restarting launchctl commands use:
+ssh mini-admin
