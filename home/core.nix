@@ -28,6 +28,7 @@
     fzf
     htop
     jq
+    yq
     ripgrep
     tree
     tmux
@@ -94,6 +95,16 @@ in {
       target = "lazygit/config.yml";
     };
   };
+
+  # Ensure lazy-lock.json is writable, not a symlink
+  home.activation.makeLazyLockWritable = config.lib.dag.entryAfter ["writeBoundary"] ''
+    LAZY_LOCK="$HOME/.config/nvim/lazy-lock.json"
+    if [ -L "$LAZY_LOCK" ]; then
+      $DRY_RUN_CMD rm -f "$LAZY_LOCK"
+      $DRY_RUN_CMD cp "${dotfiles}/nvim/lazy-lock.json" "$LAZY_LOCK"
+      $DRY_RUN_CMD chmod u+w "$LAZY_LOCK"
+    fi
+  '';
 
   programs = {
     # modern vim
