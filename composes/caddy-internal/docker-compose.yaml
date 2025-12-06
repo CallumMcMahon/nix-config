@@ -20,6 +20,8 @@ services:
       - /var/run/tailscaled.socket:/var/run/tailscale/tailscaled.sock:ro
     networks:
       - proxy_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     command: caddy run --config /etc/caddy/Caddyfile --adapter caddyfile --envfile /run/secrets/cloudflare_api_token
     secrets:
       - cloudflare_api_token
