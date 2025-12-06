@@ -48,6 +48,9 @@ require("lazy").setup({
     enabled = true, -- check for plugin updates periodically
     notify = false, -- notify on update
   }, -- automatically check for plugin updates
+  news = {
+    lazyvim = false, -- This disables the news popup on startup
+  },
   performance = {
     rtp = {
       -- disable some rtp plugins

@@ -8,6 +8,9 @@ return {
 
   {
     "folke/snacks.nvim",
+    opts = {
+      dashboard = { enabled = false },
+    },
     keys = {
       { "<leader><space>", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
     },
@@ -248,7 +251,7 @@ return {
 
   -- add any tools you want to have installed below
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = {
       ensure_installed = {
         "stylua",
