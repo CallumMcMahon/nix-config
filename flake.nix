@@ -2,15 +2,15 @@
   description = "Nix for macOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.05-darwin";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
     darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-24.11";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     disko.url = "github:nix-community/disko";
@@ -142,22 +142,26 @@
         ./modules/zsh-xdg.nix
         ./modules/host-users.nix
         ./modules/nix-core.nix
-        ./modules/mac_system.nix
+        ./modules/mini-services.nix
 
         {
+          # Admin user for remote administration with sudo access
+          users.users.callum-admin = {
+            name = "callum-admin";
+            home = "/Users/callum-admin";
+            description = "Admin user for remote management";
+            shell = nixpkgs.legacyPackages.aarch64-darwin.zsh;
+          };
+          
+          # Passwordless sudo for admin user only (nix-darwin syntax)
+          security.sudo.extraConfig = ''
+            callum-admin ALL=(ALL) NOPASSWD: ALL
+          '';
+          
           services.tailscale = {
             enable = true;
             package = nixpkgs.legacyPackages.aarch64-darwin.tailscale;
           };
-          services.jellyfin = {
-            enable = true;
-            # package = nixpkgs.legacyPackages.aarch64-darwin.jellyfin;
-          };
-          environment.systemPackages = with nixpkgs.legacyPackages.aarch64-darwin; [
-            jellyfin
-            jellyfin-web
-            jellyfin-ffmpeg
-          ];
         }
 
         # home manager
