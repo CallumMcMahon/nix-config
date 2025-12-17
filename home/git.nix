@@ -12,6 +12,11 @@
     rm -f ~/.gitconfig
   '';
 
+  programs.difftastic = {
+    git.enable = true;
+    options.background = "dark";
+    # display = "side-by-side";
+  };
   programs.git = {
     enable = true;
     lfs.enable = true;
@@ -35,12 +40,6 @@
       remote.origin.prune = true;
       url."git@github.com:".insteadOf = "git@personal:";
       pull.rebase = false;
-    };
-
-    difftastic = {
-      enable = true;
-      background = "dark";
-      # display = "side-by-side";
     };
 
     delta = {
