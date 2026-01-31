@@ -1,2 +1,3 @@
 # git-crypt encrypted files
 composes/yams/** filter=git-crypt diff=git-crypt
+.claude/skills/private/** filter=git-crypt diff=git-crypt
