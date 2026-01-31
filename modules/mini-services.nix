@@ -1,11 +1,15 @@
 {
   pkgs,
+  pkgs-unstable,
   username,
   ...
 }: {
   # Custom Jellyfin launchd service
   # Check status: `ssh mini-admin "sudo launchctl list | grep jellyfin"` (PID = running, - = not running)
   # Restart: `ssh mini-admin "sudo launchctl kickstart -kp system/org.nixos.jellyfin"`
+  # If kickstart hangs (stuck state after reboot), use unload/load instead:
+  # Unload: `ssh mini-admin "sudo launchctl unload /Library/LaunchDaemons/org.nixos.jellyfin.plist"`
+  # Load: `ssh mini-admin "sudo launchctl load /Library/LaunchDaemons/org.nixos.jellyfin.plist"`
   # Logs: `ssh mini-admin "tail -f /var/log/jellyfin.log"`
   launchd.daemons.jellyfin = {
     serviceConfig = {
@@ -33,7 +37,7 @@
   launchd.daemons.n8n = {
     serviceConfig = {
       ProgramArguments = [
-        "${pkgs.n8n}/bin/n8n"
+        "${pkgs-unstable.n8n}/bin/n8n"
       ];
       EnvironmentVariables = {
         N8N_USER_FOLDER = "/var/lib/n8n";
@@ -76,6 +80,5 @@
     jellyfin
     jellyfin-web
     jellyfin-ffmpeg
-    n8n
-  ];
+  ] ++ [ pkgs-unstable.n8n ];
 }
