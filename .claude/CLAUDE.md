@@ -13,3 +13,7 @@ Never manually repeat or regurgitate long sequences of text (>150 characters). U
 ## Debugging Hosted Services
 
 When debugging failures in hosted/remote services, prefer checking logs via SSH rather than using Chrome browser automation. Use browser inspection only as a last resort.
+
+## Skills Documentation
+
+When documenting solutions in skill files, link to related skills rather than duplicating information. Reference format: `(see skill: <skill-name>, "<section>" section)`. This keeps documentation DRY and makes updates easier to maintain.
