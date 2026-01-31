@@ -14,6 +14,17 @@ Never manually repeat or regurgitate long sequences of text (>150 characters). U
 
 When debugging failures in hosted/remote services, prefer checking logs via SSH rather than using Chrome browser automation. Use browser inspection only as a last resort.
 
+## Deploying Config Changes to Remote Servers
+
+When making configuration changes that need to be deployed to a remote server:
+
+1. **Always make changes locally** in this repo first
+2. **Sync the entire repo** to the remote server (not just the changed files)
+3. **Restart affected services** as needed
+4. **Verify connectivity** to confirm changes work as intended
+
+See CLAUDE.local.md for the specific rsync command and remote paths.
+
 ## Skills Documentation
 
 When documenting solutions in skill files, link to related skills rather than duplicating information. Reference format: `(see skill: <skill-name>, "<section>" section)`. This keeps documentation DRY and makes updates easier to maintain.
