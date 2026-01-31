@@ -1,0 +1,2 @@
+# git-crypt encrypted files
+composes/yams/** filter=git-crypt diff=git-crypt

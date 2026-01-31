@@ -4,6 +4,7 @@
     ./shell.nix
     ./core.nix
     ./git.nix
+    ./gpg.nix
     ./starship.nix
     # ./tmux.nix
   ];
