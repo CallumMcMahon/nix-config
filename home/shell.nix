@@ -39,8 +39,16 @@
         fi
       }
       compdef _uv_run_mod uv
+      eval "$(~/repos/delphos/worktree-claude --completions)"
+      # Fix for zsh-autocomplete: NixOS default config overrides arrow key bindings
+      # # Set up key array for portability across terminals
+      # typeset -g -A key
+      # key[Up]="''${terminfo[kcuu1]}"
+      # key[Down]="''${terminfo[kcud1]}"
+      # [[ -n "''${key[Up]}" ]] && bindkey "''${key[Up]}" up-line-or-search
+      # [[ -n "''${key[Down]}" ]] && bindkey "''${key[Down]}" down-line-or-search
     '';
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     history.path = "${config.xdg.dataHome}/zsh/zsh_history";
     plugins = [
       {
@@ -52,11 +60,18 @@
         name = "fast-syntax-highlighting";
         src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
       }
-      {
-        name = "zsh-autosuggestions";
-        file = "zsh-autosuggestions.zsh";
-        src = "${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions";
-      }
+      # zsh-autosuggestions is disabled because zsh-autocomplete provides similar functionality
+      # {
+      #   name = "zsh-autosuggestions";
+      #   file = "zsh-autosuggestions.zsh";
+      #   src = "${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions";
+      # }
+      # Temporarily disabled to debug tab-closing issue
+      # {
+      #   # zsh-autocomplete should be loaded after syntax highlighting plugins
+      #   name = pkgs.zsh-autocomplete.pname;
+      #   src = pkgs.zsh-autocomplete.src;
+      # }
       {
         name = "zsh-histdb";
         src = pkgs.fetchFromGitHub {
