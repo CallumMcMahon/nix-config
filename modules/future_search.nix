@@ -23,7 +23,7 @@ in {
       pkgs-unstable.watchexec
       # pkgs.azure-cli
 
-      pkgs.blender
+      # pkgs.blender
       # pkgs.sweethome3d.application
     ];
     # programs = {
