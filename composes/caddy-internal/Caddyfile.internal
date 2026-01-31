@@ -10,6 +10,7 @@ firefly.callums-server.co.uk {
 		# maybe colima config could avoid this?
 	}
 }
+
 jellyfin.callums-server.co.uk {
 	reverse_proxy host.docker.internal:8096 {
 		header_up X-Real-IP {remote_host}
@@ -25,6 +26,14 @@ jellyfin.callums-server.co.uk {
 
 audiobooks.callums-server.co.uk {
 	reverse_proxy host.docker.internal:13378
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+        resolvers 8.8.8.8
+	}
+}
+
+n8n.callums-server.co.uk {
+	reverse_proxy host.docker.internal:5678
     tls {
         dns cloudflare {env.CLOUDFLARE_API_TOKEN}
         resolvers 8.8.8.8
