@@ -21,9 +21,6 @@
     enable = true;
     lfs.enable = true;
 
-    userName = username;
-    userEmail = useremail;
-
     # includes = [
     #   {
     #     # use diffrent email & name for work
@@ -32,7 +29,12 @@
     #   }
     # ];
 
-    extraConfig = {
+    settings = {
+      user = {
+        name = username;
+        email = useremail;
+      };
+
       init.defaultBranch = "main";
       core.editor = "vim";
       push.autoSetupRemote = true;
@@ -40,37 +42,38 @@
       remote.origin.prune = true;
       url."git@github.com:".insteadOf = "git@personal:";
       pull.rebase = false;
-    };
+      submodule.recurse = true;
 
-    delta = {
-      enable = false;
-      options = {
-        features = "side-by-side";
+      alias = {
+        # common aliases
+        br = "branch";
+        co = "checkout";
+        st = "status";
+        ls = "log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate";
+        ll = "log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --numstat";
+        cm = "commit -m";
+        ca = "commit -am";
+        dc = "diff --cached";
+        amend = "commit --amend -m";
+
+        # difftastic aliases
+        dft = "diff";
+        dlog = "log -p --ext-diff";
+        dshow = "show --ext-diff";
+
+        # aliases for submodule
+        update = "submodule update --init --recursive";
+        foreach = "submodule foreach";
       };
     };
 
-    aliases = {
-      # common aliases
-      br = "branch";
-      co = "checkout";
-      st = "status";
-      ls = "log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate";
-      ll = "log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --numstat";
-      cm = "commit -m";
-      ca = "commit -am";
-      dc = "diff --cached";
-      amend = "commit --amend -m";
-
-      # difftastic aliases
-      dft = "diff";
-      dlog = "log -p --ext-diff";
-      dshow = "show --ext-diff";
-
-      # aliases for submodule
-      update = "submodule update --init --recursive";
-      foreach = "submodule foreach";
-    };
-
     ignores = ["*.swp" ".idea" ".vscode" "research/" "lightning_logs/" ".mlflow" "outputs/" ".DS_Store" ".direnv/" ".envrc"];
+  };
+
+  programs.delta = {
+    enable = false;
+    options = {
+      features = "side-by-side";
+    };
   };
 }
