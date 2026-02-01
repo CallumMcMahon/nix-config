@@ -19,11 +19,12 @@ When debugging failures in hosted/remote services, prefer checking logs via SSH 
 When making configuration changes that need to be deployed to a remote server:
 
 1. **Always make changes locally** in this repo first
-2. **Sync the entire repo** to the remote server (not just the changed files)
-3. **Restart affected services** as needed
-4. **Verify connectivity** to confirm changes work as intended
+2. **Commit and push** changes to the git remote
+3. **Pull changes on the remote server** and resolve any merge conflicts
+4. **Restart affected services** as needed
+5. **Verify connectivity** to confirm changes work as intended
 
-See CLAUDE.local.md for the specific rsync command and remote paths.
+See CLAUDE.local.md for specific git workflow and remote paths.
 
 ## Composable Module Design
 

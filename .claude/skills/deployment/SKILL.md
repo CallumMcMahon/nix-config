@@ -61,18 +61,21 @@ nix run home-manager/release-25.11 -- switch --flake .#callum@Callums-MacBook-Pr
 ### Mac Mini - Rootless Home Manager
 
 ```bash
-# Sync repo
-rsync -avz --exclude='.git' /Users/callum/nix-config/ mini:/Users/fibonar/nix-config/
+# Locally: commit and push
+git add -A && git commit -m "message" && git push
 
-# Deploy
-ssh mini "cd ~/nix-config && nix run home-manager/release-25.11 -- switch --flake .#fibonar@Callums-Mac-Mini"
+# On remote: pull and deploy
+ssh mini "cd ~/nix-config && git pull && nix run home-manager/release-25.11 -- switch --flake .#fibonar@Callums-Mac-Mini"
 ```
 
 ### Mac Mini - Full System (requires admin)
 
 ```bash
-rsync -avz --exclude='.git' /Users/callum/nix-config/ mini:/Users/fibonar/nix-config/
-ssh mini-admin "cd /Users/fibonar/nix-config && sudo darwin-rebuild switch --flake .#Callums-Mac-Mini"
+# Locally: commit and push
+git add -A && git commit -m "message" && git push
+
+# On remote: pull and deploy as admin
+ssh mini-admin "cd /Users/fibonar/nix-config && git pull && sudo darwin-rebuild switch --flake .#Callums-Mac-Mini"
 ```
 
 ### Mac Mini - Restart Docker Containers
@@ -100,10 +103,13 @@ rm /tmp/age-key
 ssh <machine> "cat ~/.config/sops/age/keys.txt"
 ```
 
-### 2. Sync and deploy
+### 2. Clone repo and deploy
 
 ```bash
-rsync -avz --exclude='.git' /Users/callum/nix-config/ <machine>:/path/to/nix-config/
+# On the machine, clone the repo (or pull if already cloned)
+ssh <machine> "git clone <repo-url> ~/nix-config" # or "cd ~/nix-config && git pull"
+
+# Deploy
 ssh <machine> "cd ~/nix-config && nix run home-manager/release-25.11 -- switch --flake .#<config-name>"
 ```
 
