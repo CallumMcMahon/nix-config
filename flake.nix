@@ -145,14 +145,13 @@
       system = "aarch64-darwin";
       specialArgs = miniArgs;
       modules = [
-        ./modules/zsh-xdg.nix
         ./modules/host-users.nix
         ./modules/nix-core.nix
         ./modules/mini-services.nix
 
         {
           system.stateVersion = 5;
-          
+
           # Admin user for remote administration with sudo access
           users.users.callum-admin = {
             name = "callum-admin";
@@ -171,17 +170,7 @@
             package = nixpkgs.legacyPackages.aarch64-darwin.tailscale;
           };
         }
-
-        # home manager
-        home-manager.darwinModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = miniArgs;
-          home-manager.users.${mini.username} = {
-            imports = [./home ./home/mini-sops.nix];
-          };
-        }
+        # User packages managed via standalone home-manager (homeConfigurations.mini)
       ];
     };
     darwinConfigurations."${gsk.hostname}" = darwin.lib.darwinSystem {
