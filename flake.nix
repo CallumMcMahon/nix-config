@@ -16,6 +16,9 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs-unstable";
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
+    nix-openclaw.url = "github:openclaw/nix-openclaw";
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ {
@@ -26,6 +29,8 @@
     home-manager,
     disko,
     nixos-facter-modules,
+    nix-openclaw,
+    sops-nix,
     ...
   }: let
     air = {
@@ -76,8 +81,9 @@
       // m4;
     miniArgs =
       {
-        inherit inputs pkgs-unstable;
+        inherit inputs pkgs-unstable sops-nix nix-openclaw;
         system = "aarch64-darwin";
+        miniSecretsFile = ./secrets/mini.yaml;
       }
       // mini;
     hetArgs =
@@ -172,7 +178,9 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = miniArgs;
-          home-manager.users.${mini.username} = import ./home;
+          home-manager.users.${mini.username} = {
+            imports = [./home ./home/mini-sops.nix];
+          };
         }
       ];
     };
@@ -237,7 +245,7 @@
         config.allowUnfree = true;
       };
       extraSpecialArgs = miniArgs;
-      modules = [./home];
+      modules = [./home ./home/mini-sops.nix];
     };
 
     # nix code formatter
