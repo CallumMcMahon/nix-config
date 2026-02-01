@@ -11,6 +11,7 @@
   imports = [
     sops-nix.homeManagerModules.sops
     nix-openclaw.homeManagerModules.openclaw
+    ./openclaw-config.nix
   ];
 
   sops = {
@@ -48,8 +49,4 @@
       fi
     '';
 
-  programs.openclaw = {
-    enable = true;
-    launchd.enable = false; # disable until config is set up
-  };
 }
