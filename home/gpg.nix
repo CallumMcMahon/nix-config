@@ -1,4 +1,13 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  system ? "aarch64-darwin",
+  ...
+}: let
+  isDarwin = builtins.match ".*-darwin" system != null;
+  pinentryPkg = if isDarwin then pkgs.pinentry_mac else pkgs.pinentry-curses;
+  pinentryBin = if isDarwin then "${pinentryPkg}/bin/pinentry-mac" else "${pinentryPkg}/bin/pinentry-curses";
+in {
   programs.gpg = {
     enable = true;
     settings = {
@@ -16,10 +25,9 @@
     };
   };
 
-  # gpg-agent configuration for macOS
+  # gpg-agent configuration
   home.file.".gnupg/gpg-agent.conf".text = ''
-    # Use macOS pinentry for passphrase prompts (with Keychain integration)
-    pinentry-program ${pkgs.pinentry_mac}/bin/pinentry-mac
+    pinentry-program ${pinentryBin}
     # Cache passphrase for 24 hours
     default-cache-ttl 86400
     max-cache-ttl 604800

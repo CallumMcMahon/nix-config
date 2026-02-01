@@ -1,4 +1,12 @@
-{username, ...}: {
+{
+  lib,
+  username,
+  system ? "aarch64-darwin",
+  ...
+}: let
+  isDarwin = builtins.match ".*-darwin" system != null;
+  homeDir = if isDarwin then "/Users/${username}" else "/home/${username}";
+in {
   # import sub modules
   imports = [
     ./shell.nix
@@ -12,8 +20,8 @@
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home = {
-    # username = username;
-    # homeDirectory = "/Users/${username}";
+    username = lib.mkDefault username;
+    homeDirectory = lib.mkDefault homeDir;
 
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage

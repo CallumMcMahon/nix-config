@@ -218,6 +218,28 @@
       ];
     };
 
+    # home-manager switch --flake .#callum@Callums-MacBook-Pro
+    homeConfigurations."${m4.username}@${m4.hostname}" = home-manager.lib.homeManagerConfiguration {
+      pkgs = import inputs.nixpkgs-darwin {
+        system = "aarch64-darwin";
+        config.allowUnfree = true;
+      };
+      extraSpecialArgs = m4Args;
+      modules = [
+        ./home
+        {home.packages = [pkgs-unstable.zed-editor];}
+      ];
+    };
+
+    homeConfigurations."${mini.username}@${mini.hostname}" = home-manager.lib.homeManagerConfiguration {
+      pkgs = import inputs.nixpkgs-darwin {
+        system = "aarch64-darwin";
+        config.allowUnfree = true;
+      };
+      extraSpecialArgs = miniArgs;
+      modules = [./home];
+    };
+
     # nix code formatter
     # formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
   };
