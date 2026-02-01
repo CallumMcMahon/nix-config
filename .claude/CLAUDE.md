@@ -25,6 +25,34 @@ When making configuration changes that need to be deployed to a remote server:
 
 See CLAUDE.local.md for the specific rsync command and remote paths.
 
+## Composable Module Design
+
+Prefer composition over conditionals. Instead of adding hostname checks inside modules, create separate modules and compose them per-host in `flake.nix`.
+
+**Avoid:**
+```nix
+# Inside a module - checking hostname is a code smell
+isM4 = hostname == "Callums-MacBook-Pro";
+packages = lib.optionals isM4 [ expensive-package ];
+```
+
+**Prefer:**
+```nix
+# modules/local-dev.nix - separate module for local-only packages
+{ pkgs-unstable, ... }: {
+  home.packages = [ pkgs-unstable.expensive-package ];
+}
+
+# flake.nix - compose at the host level
+darwinConfigurations.m4.modules = [ ./modules/local-dev.nix ];  # included
+darwinConfigurations.mini.modules = [ ];  # not included
+```
+
+Key modules:
+- `home/` - shared home-manager config for all hosts
+- `home/mini-sops.nix` - mini-specific secrets management
+- `modules/future_search.nix` - local dev packages (slow builds, not needed on servers)
+
 ## Skills Documentation
 
 When documenting solutions in skill files, link to related skills rather than duplicating information. Reference format: `(see skill: <skill-name>, "<section>" section)`. This keeps documentation DRY and makes updates easier to maintain.
