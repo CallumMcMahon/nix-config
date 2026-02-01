@@ -7,6 +7,15 @@ description: How to deploy nix configs and bootstrap secrets with sops
 
 ## Overview
 
+This is a NixOS configuration repository for:
+- m4: Personal macOS nix-darwin ARM laptop (M4)
+- mini: Personal Mac Mini server
+- Hetzner cloud server
+
+Infrastructure: Cloudflare (domain: `callums-server.co.uk`), Tailscale (private networking).
+
+**Note:** For non-standard commands not in this config, use `nix-shell -p <pkg>`
+
 This repo uses **sops-nix** for secrets management. Secrets are encrypted in the repo and decrypted at activation time by each machine using its own age key.
 
 ## Architecture
@@ -64,6 +73,12 @@ ssh mini "cd ~/nix-config && nix run home-manager/release-25.11 -- switch --flak
 ```bash
 rsync -avz --exclude='.git' /Users/callum/nix-config/ mini:/Users/fibonar/nix-config/
 ssh mini-admin "cd /Users/fibonar/nix-config && sudo darwin-rebuild switch --flake .#Callums-Mac-Mini"
+```
+
+### Mac Mini - Restart Docker Containers
+
+```bash
+ssh mini "cd /Users/fibonar/nix-config/composes/<service> && docker compose up -d"
 ```
 
 ## Bootstrapping a Machine
