@@ -14,6 +14,7 @@
       # in .zshrc works for interactive shells; use `zsh -i -c` for remote commands.
       export PATH="$HOME/.local/state/nix/profiles/home-manager/home-path/bin:$PATH"
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
+      [[ -d /opt/homebrew/bin ]] && export PATH="/opt/homebrew/bin:$PATH"
       export CARGO_HOME="$XDG_DATA_HOME"/cargo
       export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
       export NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME"/npm/config/npm-init.js
@@ -44,7 +45,7 @@
         fi
       }
       compdef _uv_run_mod uv
-      eval "$(~/repos/delphos/worktree-claude --completions)"
+      [[ -f ~/.local/bin/worktree-claude ]] && eval "$(~/.local/bin/worktree-claude --completions)"
       # Fix for zsh-autocomplete: NixOS default config overrides arrow key bindings
       # # Set up key array for portability across terminals
       # typeset -g -A key
