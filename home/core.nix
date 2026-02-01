@@ -59,7 +59,6 @@
     helix
     zellij
     claude-code
-    codex
     gemini-cli
   ];
 in {

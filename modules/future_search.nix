@@ -21,6 +21,7 @@ in {
       pkgs-unstable.lefthook
       pkgs-unstable.supabase-cli
       pkgs-unstable.watchexec
+      pkgs-unstable.codex # slow to build, local only
       # pkgs.azure-cli
 
       # pkgs.blender
