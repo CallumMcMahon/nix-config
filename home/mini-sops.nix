@@ -48,9 +48,8 @@
       fi
     '';
 
-  # programs.openclaw = {
-  #   enable = true;
-  #   # TODO: Configure channels, plugins, etc.
-  #   # See: https://docs.openclaw.ai/install/nix
-  # };
+  programs.openclaw = {
+    enable = true;
+    launchd.enable = false; # disable until config is set up
+  };
 }

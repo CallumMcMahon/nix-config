@@ -243,6 +243,7 @@
       pkgs = import inputs.nixpkgs-darwin {
         system = "aarch64-darwin";
         config.allowUnfree = true;
+        overlays = [nix-openclaw.overlays.default];
       };
       extraSpecialArgs = miniArgs;
       modules = [./home ./home/mini-sops.nix];
