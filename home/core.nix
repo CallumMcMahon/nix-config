@@ -51,7 +51,6 @@
   ];
   unstablePackages = with pkgs-unstable; [
     colima # xdg home support?
-    uv
     micromamba
     mamba-cpp
 

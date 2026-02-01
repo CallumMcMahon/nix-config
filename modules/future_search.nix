@@ -22,6 +22,7 @@ in {
       pkgs-unstable.supabase-cli
       pkgs-unstable.watchexec
       pkgs-unstable.codex # slow to build, local only
+      pkgs-unstable.uv # conflicts with openclaw on mini
       # pkgs.azure-cli
 
       # pkgs.blender
