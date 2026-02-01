@@ -1,0 +1,17 @@
+keys:
+  - &m4 age1hg5nuw0m943yhchef9wq85vzkyrs5yn6yzy7kx3nttxl884p7ytqqln4nk
+  - &mini age12lectvfq9anuussh23ke9lrc5tflf48fdruacpqtl8saxfgt5fmsqchlhz
+
+creation_rules:
+  # Mini secrets - decryptable by m4 (for editing) and mini (for use)
+  - path_regex: secrets/mini\.yaml$
+    key_groups:
+      - age:
+          - *m4
+          - *mini
+
+  # Bootstrap keys - only decryptable by m4 (contains other machines' age keys)
+  - path_regex: secrets/bootstrap\.yaml$
+    key_groups:
+      - age:
+          - *m4
