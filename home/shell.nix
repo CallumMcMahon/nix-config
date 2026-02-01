@@ -8,6 +8,11 @@
     enableCompletion = true;
     completionInit = ''autoload -U compinit && compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"'';
     initContent = ''
+      # Home-manager profile PATH for standalone hm (mini uses this setup).
+      # Note: home.sessionPath won't work because nix-darwin's set-environment
+      # overwrites PATH in /etc/zshenv before ~/.zshenv runs. Setting PATH here
+      # in .zshrc works for interactive shells; use `zsh -i -c` for remote commands.
+      export PATH="$HOME/.local/state/nix/profiles/home-manager/home-path/bin:$PATH"
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
       export CARGO_HOME="$XDG_DATA_HOME"/cargo
       export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
