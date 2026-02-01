@@ -1,3 +1,4 @@
 # git-crypt encrypted files
 composes/yams/** filter=git-crypt diff=git-crypt
 .claude/skills/private/** filter=git-crypt diff=git-crypt
+home/openclaw-config.nix filter=git-crypt diff=git-crypt
