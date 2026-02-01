@@ -1,13 +1,13 @@
 ---
-description: 
-globs: 
+description: Deployment commands and secrets management
+globs:
 alwaysApply: true
 ---
 This is a NixOS configuration repository.
 
 It configures:
-- my personal MacOS nix-darwin ARM laptop
-- a server deployments to Hetzner cloud
+- my personal MacOS nix-darwin ARM laptop (m4)
+- a server deployment to Hetzner cloud
 - a personal mac mini
 
 I use Cloudflare for my domain name, `callums-server.co.uk`
@@ -17,15 +17,44 @@ All commands and utilities that I have are documented in the NixOS config.
 Whenever recommending that I run a command that is non-standard (assuming it's not mentioned in this config), use
 `nix-shell -p <pkg>`
 
-## Mac setup
-Run `sudo nixos-rebuild switch --flake .` to rebuild my environment.
+## Secrets Management
 
-# Mac Mini setup
-Push code with something like:
-rsync -av /Users/callum/nix-config mini:/Users/fibonar/nix-config
+Uses **sops-nix** with age encryption. See `.claude/skills/deployment/SKILL.md` for full details.
 
-Restart containers with something like
+- `secrets/bootstrap.yaml` - Contains other machines' age keys (encrypted to m4 only)
+- `secrets/mini.yaml` - Mini's secrets (encrypted to m4 + mini)
+- Only m4's age key needs to be backed up (in Bitwarden)
+
+## Mac (m4) setup
+
+Full system rebuild:
+```bash
+sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#Callums-MacBook-Pro
+```
+
+Home-manager only (faster, no sudo):
+```bash
+nix run home-manager/release-25.11 -- switch --flake .#callum@Callums-MacBook-Pro
+```
+
+## Mac Mini setup
+
+Sync repo:
+```bash
+rsync -avz --exclude='.git' /Users/callum/nix-config/ mini:/Users/fibonar/nix-config/
+```
+
+Rootless home-manager deploy:
+```bash
+ssh mini "cd ~/nix-config && nix run home-manager/release-25.11 -- switch --flake .#fibonar@Callums-Mac-Mini"
+```
+
+Full system rebuild (rare, needs admin):
+```bash
+ssh mini-admin "cd /Users/fibonar/nix-config && sudo darwin-rebuild switch --flake .#Callums-Mac-Mini"
+```
+
+Restart containers:
+```bash
 ssh mini "cd /Users/fibonar/nix-config/composes/<service> && DOCKER_HOST=unix:///Users/fibonar/.config/colima/default/docker.sock docker compose up -d"
-
-On rare occasions where sudo commands are needed like restarting launchctl commands use:
-ssh mini-admin
+```
