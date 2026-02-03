@@ -152,6 +152,9 @@
         {
           system.stateVersion = 5;
 
+          # Required for launchd.user.agents (Jellyfin runs as user agent)
+          system.primaryUser = mini.username;
+
           # Admin user for remote administration with sudo access
           users.users.callum-admin = {
             name = "callum-admin";
