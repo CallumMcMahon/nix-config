@@ -4,29 +4,27 @@
   username,
   ...
 }: {
-  # Custom Jellyfin launchd service
-  # Check status: `ssh mini-admin "sudo launchctl list | grep jellyfin"` (PID = running, - = not running)
-  # Restart: `ssh mini-admin "sudo launchctl kickstart -kp system/org.nixos.jellyfin"`
-  # If kickstart hangs (stuck state after reboot), use unload/load instead:
-  # Unload: `ssh mini-admin "sudo launchctl unload /Library/LaunchDaemons/org.nixos.jellyfin.plist"`
-  # Load: `ssh mini-admin "sudo launchctl load /Library/LaunchDaemons/org.nixos.jellyfin.plist"`
-  # Logs: `ssh mini-admin "tail -f /var/log/jellyfin.log"`
-  launchd.daemons.jellyfin = {
+  # Custom Jellyfin launchd service (runs as user LaunchAgent for TCC/external drive access)
+  # Check status: `ssh mini "launchctl list | grep jellyfin"` (PID = running, - = not running)
+  # Restart: `ssh mini "launchctl kickstart -kp gui/$(id -u)/org.nixos.jellyfin"`
+  # Logs: `ssh mini "tail -f ~/Library/Logs/jellyfin.log"`
+  # Note: Runs as user agent (not daemon) to allow access to external volumes like /Volumes/mini4
+  launchd.user.agents.jellyfin = {
     serviceConfig = {
       ProgramArguments = [
         "${pkgs.jellyfin}/bin/jellyfin"
         "--datadir"
-        "/var/lib/jellyfin"
+        "/Users/${username}/.local/share/jellyfin"
         "--configdir"
-        "/etc/jellyfin"
+        "/Users/${username}/.config/jellyfin"
         "--cachedir"
-        "/var/cache/jellyfin"
+        "/Users/${username}/.cache/jellyfin"
       ];
       KeepAlive = true;
       RunAtLoad = true;
-      StandardOutPath = "/var/log/jellyfin.log";
-      StandardErrorPath = "/var/log/jellyfin.error.log";
-      WorkingDirectory = "/var/lib/jellyfin";
+      StandardOutPath = "/Users/${username}/Library/Logs/jellyfin.log";
+      StandardErrorPath = "/Users/${username}/Library/Logs/jellyfin.error.log";
+      WorkingDirectory = "/Users/${username}/.local/share/jellyfin";
     };
   };
 
@@ -53,16 +51,14 @@
     };
   };
 
-  # Create necessary directories for jellyfin
+  # Create necessary directories for jellyfin (user-level paths for LaunchAgent)
   system.activationScripts.jellyfin = {
     text = ''
-      mkdir -p /var/lib/jellyfin
-      mkdir -p /etc/jellyfin
-      mkdir -p /var/cache/jellyfin
-      mkdir -p /var/log
-      chown -R ${username}:staff /var/lib/jellyfin
-      chown -R ${username}:staff /etc/jellyfin
-      chown -R ${username}:staff /var/cache/jellyfin
+      # Create user directories for jellyfin LaunchAgent
+      sudo -u ${username} mkdir -p /Users/${username}/.local/share/jellyfin
+      sudo -u ${username} mkdir -p /Users/${username}/.config/jellyfin
+      sudo -u ${username} mkdir -p /Users/${username}/.cache/jellyfin
+      sudo -u ${username} mkdir -p /Users/${username}/Library/Logs
     '';
   };
 
