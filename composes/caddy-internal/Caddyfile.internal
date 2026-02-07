@@ -48,6 +48,32 @@ qube.callums-server.co.uk {
 	}
 }
 
+matrix.callums-server.co.uk {
+	reverse_proxy tuwunel:6167
+	tls {
+		dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+		resolvers 8.8.8.8
+	}
+}
+
+callums-server.co.uk {
+	handle /.well-known/matrix/client {
+		header Content-Type application/json
+		respond `{"m.homeserver":{"base_url":"https://matrix.callums-server.co.uk"}}`
+	}
+	handle /.well-known/matrix/server {
+		header Content-Type application/json
+		respond `{"m.server":"matrix.callums-server.co.uk:443"}`
+	}
+	handle {
+		respond "Not Found" 404
+	}
+	tls {
+		dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+		resolvers 8.8.8.8
+	}
+}
+
 callums-macbook-air.coat-moth.ts.net {
 	respond "Hello from Caddy on callums-macbook-air.coat-moth.ts.net! Test Succeeded!"
 }

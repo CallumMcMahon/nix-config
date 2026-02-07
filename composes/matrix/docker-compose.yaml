@@ -1,0 +1,50 @@
+services:
+  tuwunel:
+    image: ghcr.io/matrix-construct/tuwunel:latest
+    container_name: tuwunel
+    restart: unless-stopped
+    environment:
+      - TUWUNEL_SERVER_NAME=callums-server.co.uk
+      - TUWUNEL_ALLOW_FEDERATION=false
+      - TUWUNEL_ALLOW_REGISTRATION=true   # disable after first user created
+      - TUWUNEL_DATABASE_PATH=/var/lib/tuwunel
+      - TUWUNEL_PORT=6167
+      - TUWUNEL_ADDRESS=0.0.0.0
+      - TUWUNEL_WELL_KNOWN__CLIENT=https://matrix.callums-server.co.uk
+      - TUWUNEL_WELL_KNOWN__SERVER=matrix.callums-server.co.uk:443
+    volumes:
+      - /Volumes/mini4/matrix/tuwunel:/var/lib/tuwunel
+    networks:
+      - proxy_network
+      - matrix_network
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: matrix-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=mautrix
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=mautrix_whatsapp
+    volumes:
+      - /Volumes/mini4/matrix/postgres:/var/lib/postgresql/data
+    networks:
+      - matrix_network
+
+  mautrix-whatsapp:
+    image: dock.mau.dev/mautrix/whatsapp:latest
+    container_name: mautrix-whatsapp
+    restart: unless-stopped
+    volumes:
+      - /Volumes/mini4/matrix/mautrix-whatsapp:/data
+    networks:
+      - matrix_network
+    depends_on:
+      - tuwunel
+      - postgres
+
+networks:
+  proxy_network:
+    external: true
+  matrix_network:
+    driver: bridge
