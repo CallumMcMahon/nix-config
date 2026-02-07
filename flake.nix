@@ -127,18 +127,7 @@
         ./modules/mac_system.nix
         ./modules/personal-settings.nix
         ./modules/future_search.nix
-
-        # home manager
-        home-manager.darwinModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = m4Args;
-          home-manager.users.${m4.username} = {
-            imports = [./home];
-            home.packages = [pkgs-unstable.zed-editor];
-          };
-        }
+        # User packages managed via standalone home-manager (homeConfigurations)
       ];
     };
     darwinConfigurations."${mini.hostname}" = darwin.lib.darwinSystem {

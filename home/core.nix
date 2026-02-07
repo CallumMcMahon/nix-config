@@ -57,7 +57,7 @@
     neovim
     helix
     zellij
-    claude-code
+    # claude-code # installed outside nix for faster updates
     gemini-cli
   ];
 in {
