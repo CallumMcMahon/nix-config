@@ -26,6 +26,11 @@
     };
   };
 
+  programs.ssh.matchBlocks."github.com" = {
+    identityFile = "${config.home.homeDirectory}/.ssh/nix-config-deploy";
+    identitiesOnly = true;
+  };
+
   home.activation.setupDeployKey = config.lib.dag.entryAfter ["sops-nix"] ''
     mkdir -p "${config.home.homeDirectory}/.ssh"
     chmod 700 "${config.home.homeDirectory}/.ssh"
