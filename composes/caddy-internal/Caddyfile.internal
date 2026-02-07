@@ -71,6 +71,7 @@ callums-server.co.uk {
 	tls {
 		dns cloudflare {env.CLOUDFLARE_API_TOKEN}
 		resolvers 8.8.8.8
+		propagation_delay 30s
 	}
 }
 
