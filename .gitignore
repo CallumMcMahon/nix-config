@@ -4,20 +4,5 @@ dotfiles/zellij/plugins/*
 **/*.env
 .decrypted*
 
-# YAMS config exclusions (logs, caches, temp files)
-composes/yams/config/**/logs/
-composes/yams/config/**/log/
-composes/yams/config/**/Sentry/
-composes/yams/config/**/cache/
-composes/yams/config/**/migrations/
-composes/yams/config/**/*.log
-composes/yams/config/**/*.txt
-composes/yams/config/**/*.db-shm
-composes/yams/config/**/*.db-wal
-composes/yams/config/**/*.pid
-composes/yams/config/**/*.tgz
-composes/yams/config/**/*.bak
-composes/yams/config/**/*.envelope
-composes/yams/config/**/*.lock
-composes/yams/config/**/lockfile
-composes/yams/config/**/MediaCover/
+# YAMS config lives on SSD, not in git
+composes/yams/config/
