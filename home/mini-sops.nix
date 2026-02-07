@@ -26,9 +26,13 @@
     };
   };
 
-  programs.ssh.matchBlocks."github.com" = {
-    identityFile = "${config.home.homeDirectory}/.ssh/nix-config-deploy";
-    identitiesOnly = true;
+  programs.ssh = {
+    enable = true;
+    includes = ["${config.home.homeDirectory}/.config/colima/ssh_config"];
+    matchBlocks."github.com" = {
+      identityFile = "${config.home.homeDirectory}/.ssh/nix-config-deploy";
+      identitiesOnly = true;
+    };
   };
 
   home.activation.setupDeployKey = config.lib.dag.entryAfter ["sops-nix"] ''
