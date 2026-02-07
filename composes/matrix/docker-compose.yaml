@@ -6,8 +6,7 @@ services:
     environment:
       - TUWUNEL_SERVER_NAME=callums-server.co.uk
       - TUWUNEL_ALLOW_FEDERATION=false
-      - TUWUNEL_ALLOW_REGISTRATION=true
-      - TUWUNEL_REGISTRATION_TOKEN=${REGISTRATION_TOKEN}  # remove after first user created
+      - TUWUNEL_ALLOW_REGISTRATION=false
       - TUWUNEL_DATABASE_PATH=/var/lib/tuwunel
       - TUWUNEL_PORT=6167
       - TUWUNEL_ADDRESS=0.0.0.0
