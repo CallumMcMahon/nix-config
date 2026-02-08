@@ -20,6 +20,7 @@
     libiconv
     nil
     age
+    sops
     gnupg
     git-crypt
     libfido2

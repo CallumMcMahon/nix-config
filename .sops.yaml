@@ -10,6 +10,13 @@ creation_rules:
           - *m4
           - *mini
 
+  # Compose secrets - decryptable by m4 (for editing) and mini (for runtime)
+  - path_regex: composes/.*/secrets\.yaml$
+    key_groups:
+      - age:
+          - *m4
+          - *mini
+
   # Bootstrap keys - only decryptable by m4 (contains other machines' age keys)
   - path_regex: secrets/bootstrap\.yaml$
     key_groups:
