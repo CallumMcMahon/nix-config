@@ -59,34 +59,32 @@ sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#Callums-MacBoo
 nix run home-manager/release-25.11 -- switch --flake .#callum@Callums-MacBook-Pro
 ```
 
-### Mac Mini - Rootless Home Manager
+### Syncing to Mac Mini
 
-**Warning:** The remote repo often has uncommitted local changes. Always check `git status` on the remote before pulling to avoid clobbering them. Stash or commit remote changes first if needed.
+Push directly to the mini via the `mini` git remote (avoids GitHub):
 
 ```bash
-# Check remote status first
-ssh mini "cd ~/nix-config && git status"
+# Push to a deploy branch (doesn't touch mini's working tree)
+git push mini main:deploy
 
-# Locally: commit and push
-git add -A && git commit -m "message" && git push
+# Merge on mini (stashes uncommitted changes, fast-forward merges, restores)
+ssh mini "cd ~/nix-config && git stash && git merge deploy --ff-only && git stash pop; git branch -d deploy"
+```
 
-# On remote: pull and deploy (stash if needed)
-ssh mini "cd ~/nix-config && git stash && git pull && git stash pop && nix run home-manager/release-25.11 -- switch --flake .#fibonar@Callums-Mac-Mini"
+If `--ff-only` fails, the mini has divergent commits that need manual resolution.
+
+### Mac Mini - Rootless Home Manager
+
+```bash
+# Sync to mini first (see above), then:
+ssh mini "cd ~/nix-config && nix run home-manager/release-25.11 -- switch --flake .#fibonar@Callums-Mac-Mini"
 ```
 
 ### Mac Mini - Full System (requires admin)
 
-**Warning:** Check for uncommitted remote changes before pulling (see above).
-
 ```bash
-# Check remote status first
-ssh mini-admin "cd /Users/fibonar/nix-config && git status"
-
-# Locally: commit and push
-git add -A && git commit -m "message" && git push
-
-# On remote: pull and deploy as admin
-ssh mini-admin "cd /Users/fibonar/nix-config && git stash && git pull && git stash pop && sudo darwin-rebuild switch --flake .#Callums-Mac-Mini"
+# Sync to mini first (see above), then:
+ssh mini-admin "cd /Users/fibonar/nix-config && sudo darwin-rebuild switch --flake .#Callums-Mac-Mini"
 ```
 
 ### Mac Mini - Restart Docker Containers

@@ -14,17 +14,19 @@ Never manually repeat or regurgitate long sequences of text (>150 characters). U
 
 When debugging failures in hosted/remote services, prefer checking logs via SSH rather than using Chrome browser automation. Use browser inspection only as a last resort.
 
-## Deploying Config Changes to Remote Servers
+## Git & Deployment
 
-When making configuration changes that need to be deployed to a remote server:
+**Never push to `origin` (GitHub) by default.** This is a public repo. Only commit locally unless the user explicitly asks to push to GitHub. Pushing to GitHub should be a deliberate, separate step after reviewing changes for leaked secrets or sensitive information.
 
-1. **Always make changes locally** in this repo first
-2. **Commit and push** changes to the git remote
-3. **Pull changes on the remote server** and resolve any merge conflicts
+**To deploy to the Mac Mini**, push directly via the `mini` remote and merge on the server. This avoids GitHub entirely:
+
+1. **Commit locally** (do NOT push to origin)
+2. **Push to mini**: `git push mini main:deploy`
+3. **Merge on mini**: `ssh mini "cd ~/nix-config && git stash && git merge deploy --ff-only && git stash pop; git branch -d deploy"`
 4. **Restart affected services** as needed
-5. **Verify connectivity** to confirm changes work as intended
+5. **Verify connectivity** to confirm changes work
 
-See CLAUDE.local.md for specific git workflow and remote paths.
+See CLAUDE.local.md for SSH aliases and remote paths. See skill: `deployment` for full details.
 
 ## Composable Module Design
 
