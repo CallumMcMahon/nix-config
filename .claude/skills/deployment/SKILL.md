@@ -43,6 +43,7 @@ secrets/<machine>.yaml (deploy keys, API keys, etc.)
 |------|-------------|----------|
 | `secrets/bootstrap.yaml` | m4 only | Other machines' age private keys |
 | `secrets/mini.yaml` | m4 + mini | Deploy key, git-crypt key, API keys |
+| `composes/*/secrets.yaml` | m4 + mini | Docker compose runtime secrets (e.g. DB passwords). Used with `sops exec-env` at runtime (see skill: `matrix`, "Managing the Stack" section). |
 
 ## Deployment Types
 
