@@ -22,7 +22,7 @@ When debugging failures in hosted/remote services, prefer checking logs via SSH 
 
 1. **Commit locally** (do NOT push to origin)
 2. **Push to mini**: `git push mini main:deploy`
-3. **Merge on mini**: `ssh mini "cd ~/nix-config && git stash && git merge deploy --ff-only && git stash pop; git branch -d deploy"`
+3. **Merge on mini**: `ssh mini "cd ~/nix-config && git stash; git merge deploy --ff-only; git stash pop 2>/dev/null; git branch -d deploy"`
 4. **Restart affected services** as needed
 5. **Verify connectivity** to confirm changes work
 

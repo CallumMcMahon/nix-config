@@ -68,7 +68,7 @@ Push directly to the mini via the `mini` git remote (avoids GitHub):
 git push mini main:deploy
 
 # Merge on mini (stashes uncommitted changes, fast-forward merges, restores)
-ssh mini "cd ~/nix-config && git stash && git merge deploy --ff-only && git stash pop; git branch -d deploy"
+ssh mini "cd ~/nix-config && git stash; git merge deploy --ff-only; git stash pop 2>/dev/null; git branch -d deploy"
 ```
 
 If `--ff-only` fails, the mini has divergent commits that need manual resolution.
