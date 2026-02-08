@@ -64,14 +64,15 @@ nix run home-manager/release-25.11 -- switch --flake .#callum@Callums-MacBook-Pr
 Push directly to the mini via the `mini` git remote (avoids GitHub):
 
 ```bash
-# Push to a deploy branch (doesn't touch mini's working tree)
+# Push to a deploy branch (always safe — doesn't touch mini's working tree)
 git push mini main:deploy
-
-# Merge on mini (stashes uncommitted changes, fast-forward merges, restores)
-ssh mini "cd ~/nix-config && git stash; git merge deploy --ff-only; git stash pop 2>/dev/null; git branch -d deploy"
 ```
 
-If `--ff-only` fails, the mini has divergent commits that need manual resolution.
+Then on the mini (`ssh mini "cd ~/nix-config && ..."`):
+1. Stash any uncommitted changes
+2. Merge the `deploy` branch into the current branch (the remote may have its own commits, so fast-forward is not guaranteed — resolve merge conflicts if they arise)
+3. Restore stashed changes
+4. Delete the `deploy` branch
 
 ### Mac Mini - Rootless Home Manager
 

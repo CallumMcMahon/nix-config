@@ -18,11 +18,11 @@ When debugging failures in hosted/remote services, prefer checking logs via SSH 
 
 **Never push to `origin` (GitHub) by default.** This is a public repo. Only commit locally unless the user explicitly asks to push to GitHub. Pushing to GitHub should be a deliberate, separate step after reviewing changes for leaked secrets or sensitive information.
 
-**To deploy to the Mac Mini**, push directly via the `mini` remote and merge on the server. This avoids GitHub entirely:
+**To deploy to the Mac Mini**, push directly via the `mini` git remote and merge on the server. This avoids GitHub entirely:
 
 1. **Commit locally** (do NOT push to origin)
-2. **Push to mini**: `git push mini main:deploy`
-3. **Merge on mini**: `ssh mini "cd ~/nix-config && git stash; git merge deploy --ff-only; git stash pop 2>/dev/null; git branch -d deploy"`
+2. **Push to mini**: `git push mini main:deploy` — this pushes to a non-checked-out branch and is always safe regardless of remote state
+3. **Merge on mini**: preserve any uncommitted changes (stash), merge the `deploy` branch into the current branch, restore uncommitted changes, and clean up the deploy branch. The remote may have its own commits, so a fast-forward is not guaranteed — handle merge conflicts if they arise.
 4. **Restart affected services** as needed
 5. **Verify connectivity** to confirm changes work
 
