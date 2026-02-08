@@ -33,7 +33,7 @@ audiobooks.callums-server.co.uk {
 }
 
 n8n.callums-server.co.uk {
-	reverse_proxy host.docker.internal:5678
+	reverse_proxy n8n:5678
     tls {
         dns cloudflare {env.CLOUDFLARE_API_TOKEN}
         resolvers 8.8.8.8
