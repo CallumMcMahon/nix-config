@@ -9,6 +9,7 @@ services:
       - N8N_PROTOCOL=https
       - N8N_RUNNERS_DISABLED=true
       - WEBHOOK_URL=https://n8n.callums-server.co.uk/
+      - GENERIC_TIMEZONE=Europe/London
     volumes:
       - /Volumes/mini4/n8n:/home/node/.n8n
     networks:
