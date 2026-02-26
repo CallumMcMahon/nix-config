@@ -103,8 +103,6 @@
         ./modules/host-users.nix
         ./modules/nix-core.nix
         ./modules/mac_system.nix
-        ./modules/personal-settings.nix
-        ./modules/future_search.nix
 
         # home manager
         home-manager.darwinModules.home-manager
@@ -112,7 +110,13 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = airArgs;
-          home-manager.users.${air.username} = import ./home;
+          home-manager.users.${air.username} = {
+            imports = [
+              ./home
+              ./home/personal.nix
+              ./home/future_search.nix
+            ];
+          };
         }
       ];
     };
@@ -125,9 +129,23 @@
         ./modules/host-users.nix
         ./modules/nix-core.nix
         ./modules/mac_system.nix
-        ./modules/personal-settings.nix
-        ./modules/future_search.nix
-        # User packages managed via standalone home-manager (homeConfigurations)
+        # Tailscale: installed manually via macOS App Store (needs Network Extension, can't be Nix-managed)
+
+        # home manager
+        home-manager.darwinModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = m4Args;
+          home-manager.users.${m4.username} = {
+            imports = [
+              ./home
+              ./home/personal.nix
+              ./home/future_search.nix
+            ];
+            home.packages = [pkgs-unstable.zed-editor];
+          };
+        }
       ];
     };
     darwinConfigurations."${mini.hostname}" = darwin.lib.darwinSystem {
@@ -157,6 +175,16 @@
           services.tailscale = {
             enable = true;
             package = nixpkgs.legacyPackages.aarch64-darwin.tailscale;
+          };
+
+          # IP forwarding for Tailscale exit node
+          launchd.daemons.ip-forwarding = {
+            serviceConfig = {
+              ProgramArguments = ["/usr/sbin/sysctl" "-w" "net.inet.ip.forwarding=1"];
+              RunAtLoad = true;
+              StandardOutPath = "/var/log/ip-forwarding.log";
+              StandardErrorPath = "/var/log/ip-forwarding.log";
+            };
           };
         }
         # User packages managed via standalone home-manager (homeConfigurations.mini)
@@ -201,19 +229,6 @@
           home-manager.users.${het.username} = import ./home;
           home-manager.users.root = import ./home;
         }
-      ];
-    };
-
-    # home-manager switch --flake .#callum@Callums-MacBook-Pro
-    homeConfigurations."${m4.username}@${m4.hostname}" = home-manager.lib.homeManagerConfiguration {
-      pkgs = import inputs.nixpkgs-darwin {
-        system = "aarch64-darwin";
-        config.allowUnfree = true;
-      };
-      extraSpecialArgs = m4Args;
-      modules = [
-        ./home
-        {home.packages = [pkgs-unstable.zed-editor];}
       ];
     };
 
